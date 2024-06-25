@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-blue-color: #29c2f1; /* Define the primary color variable */
+}
+
+.nav-bar {
+  background-color: rgb(40, 40, 49);
+  width: 100vw;
+  height: 60px;
+}
+.nav-list {
+  display: flex;
+  justify-content: end;
+  list-style-type: none;
+  align-items: center;
+  height: 100%;
+}
+.nav-list-li {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.button {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: white;
+  width: 100px;
+  height: 40px;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.save-button {
+  background-color: #29f1b5;
+}
+.download-button {
+  width: 140px;
+  background-color: var(--primary-blue-color);
+}
+.button:active {
+  transform: scale(0.95);
+}
