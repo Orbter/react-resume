@@ -17,4 +17,5 @@ ul {
   flex-direction: column;
   padding: 25px;
   align-items: center;
+  gap: 20px;
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import down from '../assets/down.svg';
 import person from '../assets/person.svg';
 import { formatPhoneNumber, isValueValid } from './profile-check';
+import { v4 as uuidv4 } from 'uuid';
 
 function ProfileCard() {
   const [formData, setFormData] = useState({
@@ -97,12 +98,14 @@ function ProfileCard() {
       </div>
       <div className="card-content">
         <form className="form-personal">
-          <div className="add-picture">
-            <img src={person} alt="profile" />
+          <div className="picture-container">
+            <label className="label-personal label-picture">add picture</label>
+            <div className="add-picture">
+              <img src={person} alt="profile" />
+            </div>
           </div>
-
           {formFields.map((field) => (
-            <div className="form-group" key={field.name}>
+            <div className="form-group" key={uuidv4()}>
               <label
                 htmlFor={field.name}
                 className={
