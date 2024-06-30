@@ -23,6 +23,7 @@ function WorkCard() {
     startDateYear: false,
     endDateMonth: false,
     endDateYear: false,
+    description: false,
   });
 
   const handleChange = (event) => {
@@ -72,6 +73,12 @@ function WorkCard() {
         endDateYear: isValueValid(value, 'endDateYear'),
       }));
     }
+    if (name === 'description') {
+      setValidation((prevState) => ({
+        ...prevState,
+        description: isValueValid(value, 'description'),
+      }));
+    }
 
     setFormData({
       ...formData,
@@ -84,7 +91,7 @@ function WorkCard() {
       label: 'Position',
       name: 'position',
       type: 'text',
-      example: "Bachelor's Degree in Computer Science",
+      example: 'software engineer',
     },
     {
       label: 'Working place',
@@ -99,10 +106,11 @@ function WorkCard() {
       example: 'Tel Aviv',
     },
   ];
+
   const dateFields = [
     [
       {
-        label: 'Start date month',
+        label: 'Start date',
         name: 'startDateMonth',
         type: 'select',
         options: [
@@ -122,7 +130,6 @@ function WorkCard() {
         example: 'april',
       },
       {
-        label: 'Start date Year',
         name: 'startDateYear',
         type: 'select',
         options: generateYearOptions(1950, new Date().getFullYear()),
@@ -131,8 +138,8 @@ function WorkCard() {
     ],
     [
       {
-        label: 'End date Year',
-        name: 'endDateYear',
+        label: 'End date',
+        name: 'endDateMonth',
         type: 'select',
         options: [
           { value: '01', label: 'January' },
@@ -151,8 +158,7 @@ function WorkCard() {
         example: 'june',
       },
       {
-        label: 'End date month',
-        name: 'endDateMonth',
+        name: 'endDateYear',
         type: 'select',
         options: generateYearOptions(1950, new Date().getFullYear()),
         example: '2024',
@@ -197,51 +203,57 @@ function WorkCard() {
           ))}
         </form>
         <form className="form-personal-work-date">
-          {dateFields.map((field) => (
+          {dateFields.map((fieldGroup) => (
             <div className="date-group" key={uuidv4()}>
-              {field.map((dateField) => (
+              {fieldGroup.map((dateFieldItem) => (
                 <div className="form-group-work" key={uuidv4()}>
-                  <label
-                    htmlFor={dateField.name}
-                    className={
-                      'label-personal' +
-                      (validation[dateField.name] ? ' valid-label' : '')
-                    }
-                  >
-                    {dateField.label}
-                  </label>
-                  <input
-                    type={dateField.type}
-                    name={dateField.name}
-                    id={dateField.name + '-work'}
-                    placeholder={dateField.example}
-                    value={formData[dateField.name]}
+                  {dateFieldItem.label && (
+                    <label
+                      htmlFor={dateFieldItem.name}
+                      className={
+                        'label-personal' +
+                        (validation[dateFieldItem.name] ? ' valid-label' : '')
+                      }
+                    >
+                      {dateFieldItem.label}
+                    </label>
+                  )}
+                  <select
+                    name={dateFieldItem.name}
+                    id={dateFieldItem.name + '-work'}
+                    value={formData[dateFieldItem.name]}
                     onChange={handleChange}
                     className={
                       'input-personal-work' +
-                      (validation[dateField.name] ? ' valid-input' : '')
+                      (validation[dateFieldItem.name] ? ' valid-input' : '')
                     }
-                  />
+                  >
+                    {dateFieldItem.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               ))}
             </div>
           ))}
         </form>
+
         <form className="form-personal-work">
           <div className="form-group">
             <label
-              htmlFor={'description'}
+              htmlFor="description"
               className={
                 'label-personal' +
                 (validation['description'] ? ' valid-label' : '')
               }
             >
-              description
+              Description
             </label>
-            <input
-              type="text"
+            <textarea
               name="description"
-              id={'description' + '-work'}
+              id="description-work"
               placeholder=""
               value={formData['description']}
               onChange={handleChange}
