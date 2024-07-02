@@ -104,8 +104,8 @@ function ProfileCard() {
               <img src={person} alt="profile" />
             </div>
           </div>
-          {formFields.map((field) => (
-            <div className="form-group" key={uuidv4()}>
+          {formFields.map((field, index) => (
+            <div className="form-group" key={index}>
               <label
                 htmlFor={field.name}
                 className={

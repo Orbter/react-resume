@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import down from '../assets/down.svg';
-import { isValueValid, generateYearOptions } from './work-check';
-import { v4 as uuidv4 } from 'uuid';
-import '../style/work.css';
+import { isValueValid, generateYearOptions } from './education-check';
+import '../style/education.css';
 
-function WorkCard() {
+function EducationCard() {
   const [formData, setFormData] = useState({
-    position: '',
-    workingPlace: '',
+    education: '',
+    school: '',
     city: '',
     startDateMonth: '',
     startDateYear: '',
@@ -15,9 +14,10 @@ function WorkCard() {
     endDateYear: '',
     description: '',
   });
+
   const [validation, setValidation] = useState({
-    position: false,
-    workingPlace: false,
+    education: false,
+    school: false,
     city: false,
     startDateMonth: false,
     startDateYear: false,
@@ -28,31 +28,29 @@ function WorkCard() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let formattedValue = value;
-
+    console.log(`Changing ${name} to ${value}`);
     setValidation((prevState) => ({
       ...prevState,
       [name]: isValueValid(value),
     }));
-
-    setFormData({
-      ...formData,
-      [name]: formattedValue,
-    });
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const formFields = [
     {
-      label: 'Position',
-      name: 'position',
+      label: 'Education',
+      name: 'education',
       type: 'text',
-      example: 'software engineer',
+      example: "Bachelor's Degree in Computer Science",
     },
     {
-      label: 'Working place',
-      name: 'workingPlace',
+      label: 'School',
+      name: 'school',
       type: 'text',
-      example: 'software engineer',
+      example: 'Harvard',
     },
     {
       label: 'City',
@@ -124,7 +122,7 @@ function WorkCard() {
   return (
     <div className="card">
       <div className="header-work">
-        <h1 className="card-header">Work Experience</h1>
+        <h1 className="card-header">Education</h1>
         <div className="action">
           <img src={down} alt="open/close" className="action-img" />
         </div>
@@ -158,10 +156,10 @@ function WorkCard() {
           ))}
         </form>
         <form className="form-personal-work-date">
-          {dateFields.map((fieldGroup) => (
-            <div className="date-group" key={uuidv4()}>
-              {fieldGroup.map((dateFieldItem) => (
-                <div className="form-group-work" key={uuidv4()}>
+          {dateFields.map((fieldGroup, index) => (
+            <div className="date-group" key={index}>
+              {fieldGroup.map((dateFieldItem, subIndex) => (
+                <div className="form-group-work" key={subIndex}>
                   {dateFieldItem.label && (
                     <label
                       htmlFor={dateFieldItem.name}
@@ -225,4 +223,4 @@ function WorkCard() {
   );
 }
 
-export default WorkCard;
+export default EducationCard;

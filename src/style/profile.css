@@ -88,6 +88,7 @@
   flex-wrap: wrap;
   width: 95vw;
   gap: 7px;
+  justify-content: start;
 }
 .label-personal {
   width: fit-content;
