@@ -5,6 +5,7 @@ import ResumePaper from './resumeVs';
 import ProfileCard from './profile/pofile-card.jsx';
 import WorkCard from './work-experience/work-card.jsx';
 import EducationCard from './education/education-card.jsx';
+import SkillCard from './skills/skill-card.jsx';
 import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <ProfileCard />
       <WorkCard />
       <EducationCard />
+      <SkillCard />
     </main>
   </React.StrictMode>
 );

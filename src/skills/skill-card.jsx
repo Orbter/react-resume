@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import down from '../assets/down.svg';
 import { v4 as uuidv4 } from 'uuid';
-import './skill-check.css';
+import '../style/skill.css';
 
 function SkillCard() {
   const [formData, setFormData] = useState({
@@ -14,6 +14,13 @@ function SkillCard() {
     level: false,
     skillMastery: false,
   });
+  const optionMastery = [
+    { value: '01', label: 'Novice' },
+    { value: '02', label: 'Beginner' },
+    { value: '03', label: 'Intermediate' },
+    { value: '04', label: 'Advanced' },
+    { value: '05', label: 'Master' },
+  ];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -55,29 +62,38 @@ function SkillCard() {
               }
             />
           </div>
-        </form>
-        <div className="level-container">
-          <label
-            htmlFor="level"
-            className={
-              'label-personal' + (validation['skill'] ? ' valid-label' : '')
-            }
-          >
-            Level
-          </label>
-          <div className="circle-rating">
-            {[1, 2, 3, 4, 5].map((value) => (
-              <div
-                className="circle"
-                id={'circle' + value}
-                key={value}
-                onClick={(handleRating(value), handleChange)}
-              ></div>
-            ))}
+          <div className="level-container">
+            <label
+              htmlFor="level"
+              className={
+                'label-personal font-label' +
+                (validation['skill'] ? ' valid-label' : '')
+              }
+            >
+              Level
+            </label>
+            <div className="circle-rating">
+              {[1, 2, 3, 4, 5].map((value) => (
+                <div
+                  className="circle"
+                  id={'circle' + value}
+                  key={value}
+                  onClick={(handleRating(value), handleChange)}
+                ></div>
+              ))}
+            </div>
           </div>
-        </div>
+          <div className="skill-mastery-container">
+            <label htmlFor="mastery" className="label-personal font-label">
+              Skill mastery
+            </label>
+            <select></select>
+          </div>
+        </form>
+
         <div className="done/delete-container"></div>
       </div>
     </div>
   );
 }
+export default SkillCard;
