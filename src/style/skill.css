@@ -14,12 +14,69 @@
 .circle {
   border-radius: 100%;
   background-color: var(--grey);
-  width: 9vw;
-  height: 9vw;
+  width: 8.5vw;
+  height: 8.5vw;
   cursor: pointer;
+  min-width: 28px;
+  min-height: 28px;
 }
 .font-label {
   font-family: 'Rubik', sans-serif;
   color: var(--grey);
   font-size: 0.9rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 89.5vw;
+  justify-content: space-between;
+}
+.skill-mastery-container {
+  display: flex;
+  flex-direction: column;
+  width: 40vw;
+  align-items: end;
+  gap: 5px;
+}
+.input-personal-mastery {
+  width: 32vw;
+  font-family: 'Rubik', sans-serif;
+
+  font-size: 1rem;
+}
+.done-delete-container {
+  display: flex;
+  width: 89.5vw;
+  justify-content: end;
+  margin-top: 30px;
+}
+.done-button {
+  width: 21.5vw;
+  height: 7vw;
+  background-color: var(--primary-blue-color);
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+}
+.delete-img {
+}
+.delete-container {
+  border: 1px solid #b9b9b9;
+  border-radius: 5px;
+  width: 7vw;
+  height: 7vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-resize {
+  min-height: 100px;
+}
+.all-options {
+  display: flex;
+  width: 32vw;
+  justify-content: space-between;
 }

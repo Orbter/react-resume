@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import down from '../assets/down.svg';
+import deleteThis from '../assets/delete.svg';
+import ok from '../assets/ok.svg';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 
@@ -32,7 +34,7 @@ function SkillCard() {
   const handleRating = (event) => {};
 
   return (
-    <div className="card">
+    <div className="card card-resize">
       <div className="header-work">
         <h1 className="card-header">Skills</h1>
         <div className="action">
@@ -62,36 +64,55 @@ function SkillCard() {
               }
             />
           </div>
-          <div className="level-container">
-            <label
-              htmlFor="level"
-              className={
-                'label-personal font-label' +
-                (validation['skill'] ? ' valid-label' : '')
-              }
-            >
-              Level
-            </label>
-            <div className="circle-rating">
-              {[1, 2, 3, 4, 5].map((value) => (
-                <div
-                  className="circle"
-                  id={'circle' + value}
-                  key={value}
-                  onClick={(handleRating(value), handleChange)}
-                ></div>
-              ))}
+          <div className="row">
+            <div className="level-container">
+              <label
+                htmlFor="level"
+                className={
+                  'label-personal font-label' +
+                  (validation['skill'] ? ' valid-label' : '')
+                }
+              >
+                Level
+              </label>
+              <div className="circle-rating">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <div
+                    className="circle"
+                    id={'circle' + value}
+                    key={value}
+                    onClick={(handleRating(value), handleChange)}
+                  ></div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="skill-mastery-container">
-            <label htmlFor="mastery" className="label-personal font-label">
-              Skill mastery
-            </label>
-            <select></select>
+            <div className="skill-mastery-container">
+              <label htmlFor="mastery" className="label-personal font-label">
+                Skill mastery
+              </label>
+              <select
+                className="input-personal-work border input-personal-mastery
+"
+              >
+                {optionMastery.map((mastery) => (
+                  <option key={mastery.value}>{mastery.label}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </form>
 
-        <div className="done/delete-container"></div>
+        <div className="done-delete-container">
+          <div className="all-options">
+            <div className="delete-container">
+              <img src={deleteThis} alt="delete" className="delete-img" />
+            </div>
+            <button className="done-button">
+              <img src={ok} alt="vi" className="check" />
+              Done
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
