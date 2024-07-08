@@ -2,6 +2,7 @@ import { useState } from 'react';
 import down from '../assets/down.svg';
 import deleteThis from '../assets/delete.svg';
 import ok from '../assets/ok.svg';
+import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 
@@ -12,10 +13,12 @@ function SkillCard() {
     skillMastery: '',
   });
   const [validation, setValidation] = useState({
-    language: false,
+    skill: false,
     level: false,
     skillMastery: false,
   });
+  const [rating, setRating] = useState(0);
+
   const optionMastery = [
     { value: '01', label: 'Novice' },
     { value: '02', label: 'Beginner' },
@@ -26,12 +29,30 @@ function SkillCard() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === 'skillMastery') {
+      setValidation((prevState) => ({
+        ...prevState,
+        skillMastery: true,
+      }));
+    } else {
+      setValidation((prevState) => ({
+        ...prevState,
+        [name]: isValueValid(value),
+      }));
+    }
+
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-  const handleRating = (event) => {};
+  const handleRating = (value) => {
+    setRating(value);
+    setValidation((prevState) => ({
+      ...prevState,
+      level: true,
+    }));
+  };
 
   return (
     <div className="card card-resize">
@@ -69,30 +90,40 @@ function SkillCard() {
               <label
                 htmlFor="level"
                 className={
-                  'label-personal font-label' +
-                  (validation['skill'] ? ' valid-label' : '')
+                  'label-personal' + (validation['level'] ? ' valid-label' : '')
                 }
               >
                 Level
               </label>
               <div className="circle-rating">
-                {[1, 2, 3, 4, 5].map((value) => (
+                {[1, 2, 3, 4, 5].map((index) => (
                   <div
-                    className="circle"
-                    id={'circle' + value}
-                    key={value}
-                    onClick={(handleRating(value), handleChange)}
+                    className={'circle' + (index <= rating ? ' active' : '')}
+                    id={'circle' + index}
+                    key={index}
+                    onClick={() => handleRating(index)}
                   ></div>
                 ))}
               </div>
             </div>
             <div className="skill-mastery-container">
-              <label htmlFor="mastery" className="label-personal font-label">
+              <label
+                htmlFor="mastery"
+                className={
+                  'label-personal' +
+                  (validation.skillMastery ? ' valid-label' : '')
+                }
+              >
                 Skill mastery
               </label>
               <select
-                className="input-personal-work border input-personal-mastery
-"
+                name="skillMastery"
+                value={formData.skillMastery}
+                onChange={handleChange}
+                className={
+                  'input-personal-mastery ' +
+                  (validation.skillMastery ? 'valid-input' : 'border')
+                }
               >
                 {optionMastery.map((mastery) => (
                   <option key={mastery.value}>{mastery.label}</option>
