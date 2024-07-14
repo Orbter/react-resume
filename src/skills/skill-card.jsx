@@ -18,15 +18,19 @@ function SkillCard() {
     skillMastery: false,
   });
   const [rating, setRating] = useState(0);
+  const [optionText, setOptionText] = useState('make a choice');
 
   const optionMastery = [
-    { value: '01', label: 'Novice' },
-    { value: '02', label: 'Beginner' },
-    { value: '03', label: 'Intermediate' },
-    { value: '04', label: 'Advanced' },
-    { value: '05', label: 'Master' },
+    { value: 1, label: 'Novice' },
+    { value: 2, label: 'Beginner' },
+    { value: 3, label: 'Intermediate' },
+    { value: 4, label: 'Advanced' },
+    { value: 5, label: 'Master' },
   ];
-
+  const hardOrSoft = [
+    { value: '01', label: 'Hard' },
+    { value: '02', label: 'Soft' },
+  ];
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === 'skillMastery') {
@@ -46,8 +50,14 @@ function SkillCard() {
       [name]: value,
     });
   };
+  const changeTextChoice = (number) => {
+    const level = optionMastery.find((option) => option.value === number);
+    setOptionText(level.label);
+  };
+
   const handleRating = (value) => {
     setRating(value);
+    changeTextChoice(value);
     setValidation((prevState) => ({
       ...prevState,
       level: true,
@@ -105,6 +115,9 @@ function SkillCard() {
                   ></div>
                 ))}
               </div>
+              <div className="rating-words">
+                <p className="rating-skill">{optionText}</p>
+              </div>
             </div>
             <div className="skill-mastery-container">
               <label
@@ -125,7 +138,7 @@ function SkillCard() {
                   (validation.skillMastery ? 'valid-input' : 'border')
                 }
               >
-                {optionMastery.map((mastery) => (
+                {hardOrSoft.map((mastery) => (
                   <option key={mastery.value}>{mastery.label}</option>
                 ))}
               </select>

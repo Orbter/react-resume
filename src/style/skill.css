@@ -98,3 +98,12 @@
 .active {
   background-color: var(--primary-blue-color);
 }
+.rating-words {
+  display: flex;
+  height: 4vw;
+}
+.rating-skill {
+  font-family: 'Rubik', sans-serif;
+  color: #8b8c96;
+  margin-top: 5px;
+}
