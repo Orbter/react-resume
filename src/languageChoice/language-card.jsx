@@ -26,11 +26,10 @@ function LanguageCard() {
       [name]: value,
     });
   };
-
   return (
     <div className="card card-resize">
       <div className="header-work">
-        <h1 className="card-header">Language</h1>
+        <h1 className="card-header">Languages</h1>
         <div className="action">
           <img src={down} alt="open/close" className="action-img" />
         </div>
@@ -44,13 +43,13 @@ function LanguageCard() {
                 'label-personal' + (validation['skill'] ? ' valid-label' : '')
               }
             >
-              Skill
+              Language
             </label>
             <input
               type={'text'}
               name={'skill'}
               id={'skill'}
-              placeholder={'fastest runner'}
+              placeholder={'english'}
               value={formData['skill']}
               onChange={handleChange}
               className={
