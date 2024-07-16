@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import down from '../assets/down.svg';
+import up from '../assets/up.svg';
+
 import { isValueValid, generateYearOptions } from './education-check';
 import '../style/education.css';
 
-function EducationCard() {
+function EducationCard({ isOpen, onClick }) {
   const [formData, setFormData] = useState({
     education: '',
     school: '',
@@ -121,104 +123,113 @@ function EducationCard() {
 
   return (
     <div className="card">
-      <div className="header-work">
+      <div
+        className={+isOpen ? 'header-work' : 'header-close'}
+        onClick={onClick}
+      >
         <h1 className="card-header">Education</h1>
         <div className="action">
-          <img src={down} alt="open/close" className="action-img" />
+          <img
+            src={isOpen ? down : up}
+            alt="open/close"
+            className="action-img"
+          />
         </div>
       </div>
-      <div className="card-content">
-        <form className="form-personal-work">
-          {formFields.map((field, index) => (
-            <div className="form-group" key={index}>
+      {isOpen && (
+        <div className="card-content">
+          <form className="form-personal-work">
+            {formFields.map((field, index) => (
+              <div className="form-group" key={index}>
+                <label
+                  htmlFor={field.name}
+                  className={
+                    'label-personal' +
+                    (validation[field.name] ? ' valid-label' : '')
+                  }
+                >
+                  {field.label}
+                </label>
+                <input
+                  type={field.type}
+                  name={field.name}
+                  id={field.name}
+                  placeholder={field.example}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className={
+                    'input-personal' +
+                    (validation[field.name] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+            ))}
+          </form>
+          <form className="form-personal-work-date">
+            {dateFields.map((fieldGroup, index) => (
+              <div className="date-group" key={index}>
+                {fieldGroup.map((dateFieldItem, subIndex) => (
+                  <div className="form-group-work" key={subIndex}>
+                    {dateFieldItem.label && (
+                      <label
+                        htmlFor={dateFieldItem.name}
+                        className={
+                          'label-personal' +
+                          (validation[dateFieldItem.name] ? ' valid-label' : '')
+                        }
+                      >
+                        {dateFieldItem.label}
+                      </label>
+                    )}
+                    <select
+                      name={dateFieldItem.name}
+                      id={dateFieldItem.name + '-work'}
+                      value={formData[dateFieldItem.name]}
+                      onChange={handleChange}
+                      className={
+                        validation[dateFieldItem.name]
+                          ? ' valid-input input-personal-work'
+                          : 'input-personal-work border'
+                      }
+                    >
+                      {dateFieldItem.options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </form>
+
+          <form className="form-personal-work description-container">
+            <div className="form-group">
               <label
-                htmlFor={field.name}
+                htmlFor="description"
                 className={
                   'label-personal' +
-                  (validation[field.name] ? ' valid-label' : '')
+                  (validation['description'] ? ' valid-label' : '')
                 }
               >
-                {field.label}
+                Description
               </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                placeholder={field.example}
-                value={formData[field.name]}
+              <textarea
+                name="description"
+                id="description-work"
+                placeholder=""
+                value={formData['description']}
                 onChange={handleChange}
                 className={
                   'input-personal' +
-                  (validation[field.name] ? ' valid-input' : '')
+                  (validation['description'] ? ' valid-input' : '')
                 }
               />
             </div>
-          ))}
-        </form>
-        <form className="form-personal-work-date">
-          {dateFields.map((fieldGroup, index) => (
-            <div className="date-group" key={index}>
-              {fieldGroup.map((dateFieldItem, subIndex) => (
-                <div className="form-group-work" key={subIndex}>
-                  {dateFieldItem.label && (
-                    <label
-                      htmlFor={dateFieldItem.name}
-                      className={
-                        'label-personal' +
-                        (validation[dateFieldItem.name] ? ' valid-label' : '')
-                      }
-                    >
-                      {dateFieldItem.label}
-                    </label>
-                  )}
-                  <select
-                    name={dateFieldItem.name}
-                    id={dateFieldItem.name + '-work'}
-                    value={formData[dateFieldItem.name]}
-                    onChange={handleChange}
-                    className={
-                      validation[dateFieldItem.name]
-                        ? ' valid-input input-personal-work'
-                        : 'input-personal-work border'
-                    }
-                  >
-                    {dateFieldItem.options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              ))}
-            </div>
-          ))}
-        </form>
-
-        <form className="form-personal-work description-container">
-          <div className="form-group">
-            <label
-              htmlFor="description"
-              className={
-                'label-personal' +
-                (validation['description'] ? ' valid-label' : '')
-              }
-            >
-              Description
-            </label>
-            <textarea
-              name="description"
-              id="description-work"
-              placeholder=""
-              value={formData['description']}
-              onChange={handleChange}
-              className={
-                'input-personal' +
-                (validation['description'] ? ' valid-input' : '')
-              }
-            />
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

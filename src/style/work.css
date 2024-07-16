@@ -3,19 +3,13 @@
   --grey: #e2e2e3; /* Define the primary color variable */
   --primary-blue-color: #29c2f1; /* Define the primary color variable */
 }
-.card {
-  width: clamp(290px, 93vw, 740px);
-  background-color: white;
-  height: fit-content;
-  padding: 10px;
-  min-height: 420px;
-  border-radius: 5px;
-}
+
 .header-work {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-top: 10px;
 }
 .card-header {
   margin: 0px;

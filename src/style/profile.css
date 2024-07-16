@@ -32,7 +32,6 @@
   background-color: white;
   height: fit-content;
   padding: 10px;
-  min-height: 420px;
   border-radius: 5px;
 }
 .picture-container {
@@ -109,4 +108,11 @@
 }
 .input-personal::placeholder {
   color: rgb(168, 167, 167);
+}
+.header-close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-top: 10px;
 }
