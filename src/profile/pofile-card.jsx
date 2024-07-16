@@ -1,11 +1,12 @@
 import '../style/profile.css';
 import { useState } from 'react';
 import down from '../assets/down.svg';
+import up from '../assets/up.svg';
 import person from '../assets/person.svg';
 import { formatPhoneNumber, isValueValid } from './profile-check';
 import { v4 as uuidv4 } from 'uuid';
 
-function ProfileCard() {
+function ProfileCard({ isOpen, onClick }) {
   const [formData, setFormData] = useState({
     name: '',
     lastName: '',
@@ -90,47 +91,58 @@ function ProfileCard() {
 
   return (
     <div className="card">
-      <div className="header-personal">
+      <div
+        className={+isOpen ? 'header-personal' : 'header-close'}
+        onClick={onClick}
+      >
         <h1 className="card-header">Personal details</h1>
         <div className="action">
-          <img src={down} alt="open/close" className="action-img" />
+          <img
+            src={isOpen ? down : up}
+            alt="open/close"
+            className="action-img"
+          />
         </div>
       </div>
-      <div className="card-content">
-        <form className="form-personal">
-          <div className="picture-container">
-            <label className="label-personal label-picture">add picture</label>
-            <div className="add-picture">
-              <img src={person} alt="profile" />
-            </div>
-          </div>
-          {formFields.map((field, index) => (
-            <div className="form-group" key={index}>
-              <label
-                htmlFor={field.name}
-                className={
-                  'label-personal' +
-                  (validation[field.name] ? ' valid-label' : '')
-                }
-              >
-                {field.label}
+      {isOpen && (
+        <div className="card-content">
+          <form className="form-personal">
+            <div className="picture-container">
+              <label className="label-personal label-picture">
+                add picture
               </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                placeholder={field.example}
-                value={formData[field.name]}
-                onChange={handleChange}
-                className={
-                  'input-personal' +
-                  (validation[field.name] ? ' valid-input' : '')
-                }
-              />
+              <div className="add-picture">
+                <img src={person} alt="profile" />
+              </div>
             </div>
-          ))}
-        </form>
-      </div>
+            {formFields.map((field, index) => (
+              <div className="form-group" key={index}>
+                <label
+                  htmlFor={field.name}
+                  className={
+                    'label-personal' +
+                    (validation[field.name] ? ' valid-label' : '')
+                  }
+                >
+                  {field.label}
+                </label>
+                <input
+                  type={field.type}
+                  name={field.name}
+                  id={field.name}
+                  placeholder={field.example}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className={
+                    'input-personal' +
+                    (validation[field.name] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+            ))}
+          </form>
+        </div>
+      )}
     </div>
   );
 }

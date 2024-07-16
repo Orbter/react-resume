@@ -9,34 +9,44 @@ import SkillCard from './skills/skill-card.jsx';
 import LanguageCard from './languageChoice/language-card.jsx';
 import './index.css';
 function App() {
-  const [openCard, setOpenCard] = useState(null);
+  const [openCard, setOpenCard] = useState({
+    profile: true,
+    work: false,
+    education: false,
+    skills: false,
+    language: false,
+    lastOpen: 'profile',
+  });
+  const openOrClose = (place) => {
+    const lastCard = openCard['lastOpen'];
+    setOpenCard((prevState) => ({
+      ...prevState,
+      [lastCard]: false,
+      [place]: true,
+      lastOpen: place,
+    }));
+  };
+
   return (
     <React.StrictMode>
       <NavBar />
       <main className="main-contact">
         <ProfileCard
-          isOpen={openCard === 'profile'}
-          onClick={() => setOpenCard(openCard === 'profile' ? null : 'profile')}
+          isOpen={openCard.profile}
+          onClick={() => openOrClose('profile')}
         />
-        <WorkCard
-          isOpen={openCard === 'work'}
-          onClick={() => setOpenCard(openCard === 'work' ? null : 'work')}
-        />
+        <WorkCard isOpen={openCard.work} onClick={() => openOrClose('work')} />
         <EducationCard
-          isOpen={openCard === 'education'}
-          onClick={() =>
-            setOpenCard(openCard === 'education' ? null : 'education')
-          }
+          isOpen={openCard.education}
+          onClick={() => openOrClose('education')}
         />
         <SkillCard
-          isOpen={openCard === 'skills'}
-          onClick={() => setOpenCard(openCard === 'skills' ? null : 'skills')}
+          isOpen={openCard.skills}
+          onClick={() => openOrClose('skills')}
         />
         <LanguageCard
-          isOpen={openCard === 'language'}
-          onClick={() =>
-            setOpenCard(openCard === 'language' ? null : 'language')
-          }
+          isOpen={openCard.language}
+          onClick={() => openOrClose('language')}
         />
       </main>
     </React.StrictMode>
