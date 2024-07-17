@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import down from '../assets/down.svg';
 import up from '../assets/up.svg';
 import deleteThis from '../assets/delete.svg';
@@ -55,7 +55,16 @@ function SkillCard({ isOpen, onClick }) {
     const level = optionMastery.find((option) => option.value === number);
     setOptionText(level.label);
   };
+  const contentRef = useRef(null);
+  const [maxHeight, setMaxHeight] = useState('0px');
 
+  useEffect(() => {
+    if (isOpen) {
+      setMaxHeight(`${contentRef.current.scrollHeight}px`);
+    } else {
+      setMaxHeight('0px');
+    }
+  }, [isOpen]);
   const handleRating = (value) => {
     setRating(value);
     changeTextChoice(value);
@@ -80,95 +89,96 @@ function SkillCard({ isOpen, onClick }) {
           />
         </div>
       </div>
-      {isOpen && (
-        <div className="card-content">
-          <form className="form-personal-work">
-            <div className="form-group">
+      <div
+        className={`card-content ${isOpen ? 'open' : ''}`}
+        style={{ maxHeight }}
+        ref={contentRef}
+      >
+        <form className="form-personal-work">
+          <div className="form-group">
+            <label
+              htmlFor="skill"
+              className={
+                'label-personal' + (validation['skill'] ? ' valid-label' : '')
+              }
+            >
+              Skill
+            </label>
+            <input
+              type={'text'}
+              name={'skill'}
+              id={'skill'}
+              placeholder={'fastest runner'}
+              value={formData['skill']}
+              onChange={handleChange}
+              className={
+                'input-personal' + (validation['skill'] ? ' valid-input' : '')
+              }
+            />
+          </div>
+          <div className="row">
+            <div className="level-container">
               <label
-                htmlFor="skill"
+                htmlFor="level"
                 className={
-                  'label-personal' + (validation['skill'] ? ' valid-label' : '')
+                  'label-personal' + (validation['level'] ? ' valid-label' : '')
                 }
               >
-                Skill
+                Level
               </label>
-              <input
-                type={'text'}
-                name={'skill'}
-                id={'skill'}
-                placeholder={'fastest runner'}
-                value={formData['skill']}
+              <div className="circle-rating">
+                {[1, 2, 3, 4, 5].map((index) => (
+                  <div
+                    className={'circle' + (index <= rating ? ' active' : '')}
+                    id={'circle' + index}
+                    key={index}
+                    onClick={() => handleRating(index)}
+                  ></div>
+                ))}
+              </div>
+              <div className="rating-words">
+                <p className="rating-skill">{optionText}</p>
+              </div>
+            </div>
+            <div className="skill-mastery-container">
+              <label
+                htmlFor="mastery"
+                className={
+                  'label-personal' +
+                  (validation.skillMastery ? ' valid-label' : '')
+                }
+              >
+                Skill mastery
+              </label>
+              <select
+                name="skillMastery"
+                value={formData.skillMastery}
                 onChange={handleChange}
                 className={
-                  'input-personal' + (validation['skill'] ? ' valid-input' : '')
+                  'input-personal-mastery ' +
+                  (validation.skillMastery ? 'valid-input' : 'border')
                 }
-              />
-            </div>
-            <div className="row">
-              <div className="level-container">
-                <label
-                  htmlFor="level"
-                  className={
-                    'label-personal' +
-                    (validation['level'] ? ' valid-label' : '')
-                  }
-                >
-                  Level
-                </label>
-                <div className="circle-rating">
-                  {[1, 2, 3, 4, 5].map((index) => (
-                    <div
-                      className={'circle' + (index <= rating ? ' active' : '')}
-                      id={'circle' + index}
-                      key={index}
-                      onClick={() => handleRating(index)}
-                    ></div>
-                  ))}
-                </div>
-                <div className="rating-words">
-                  <p className="rating-skill">{optionText}</p>
-                </div>
-              </div>
-              <div className="skill-mastery-container">
-                <label
-                  htmlFor="mastery"
-                  className={
-                    'label-personal' +
-                    (validation.skillMastery ? ' valid-label' : '')
-                  }
-                >
-                  Skill mastery
-                </label>
-                <select
-                  name="skillMastery"
-                  value={formData.skillMastery}
-                  onChange={handleChange}
-                  className={
-                    'input-personal-mastery ' +
-                    (validation.skillMastery ? 'valid-input' : 'border')
-                  }
-                >
-                  {hardOrSoft.map((mastery) => (
-                    <option key={mastery.value}>{mastery.label}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </form>
-
-          <div className="done-delete-container">
-            <div className="all-options">
-              <div className="delete-container">
-                <img src={deleteThis} alt="delete" className="delete-img" />
-              </div>
-              <button className="done-button">
-                <img src={ok} alt="vi" className="check" />
-                Done
-              </button>
+              >
+                {hardOrSoft.map((mastery) => (
+                  <option key={mastery.value}>{mastery.label}</option>
+                ))}
+              </select>
             </div>
           </div>
+        </form>
+
+        <div className="done-delete-container">
+          <div className="all-options">
+            <div className="delete-container">
+              <img src={deleteThis} alt="delete" className="delete-img" />
+            </div>
+            <button className="done-button">
+              <img src={ok} alt="vi" className="check" />
+              Done
+            </button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

@@ -36,6 +36,7 @@
   flex-wrap: wrap;
   width: 95vw;
   gap: 7px;
+  max-width: 740px;
 }
 .form-group {
   display: flex;
@@ -82,6 +83,7 @@
   width: 92.5vw;
   justify-content: space-between;
   margin-top: 5px;
+  max-width: 740px;
 }
 .form-group-work {
   display: flex;

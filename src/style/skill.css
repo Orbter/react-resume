@@ -30,12 +30,13 @@
   flex-wrap: wrap;
   width: 89.5vw;
   justify-content: space-between;
+  max-width: 740px;
 }
 .skill-mastery-container {
   display: flex;
   flex-direction: column;
-  width: 40vw;
-  align-items: end;
+  width: 32vw;
+  align-items: start;
   gap: 5px;
   font-family: 'Rubik', sans-serif;
   color: var(--grey);
@@ -55,6 +56,7 @@
   width: 89.5vw;
   justify-content: end;
   margin-top: 30px;
+  max-width: 740px;
 }
 .done-button {
   width: 21.5vw;
@@ -106,4 +108,43 @@
   font-family: 'Rubik', sans-serif;
   color: #8b8c96;
   margin-top: 5px;
+}
+@media screen and (min-width: 476px) and (max-width: 1000px) {
+  .done-delete-container {
+    margin-top: 15px;
+  }
+
+  .done-button {
+    font-size: 1.5rem;
+    width: 110px;
+    height: 6vw;
+  }
+  .check {
+    width: 1.5rem;
+  }
+  .delete-img {
+    width: 3.5vw;
+  }
+  .delete-container {
+    height: 6vw;
+    width: 6vw;
+  }
+  .all-options {
+    width: clamp(150px, 22vw, 175px);
+
+    align-items: center;
+  }
+  .circle {
+    width: 6vw;
+    height: 6vw;
+  }
+  .form-group {
+    font-size: 1.2rem;
+  }
+  .rating-skill {
+    font-size: 1.2rem;
+  }
+  .label-personal {
+    font-size: 1.2rem;
+  }
 }
