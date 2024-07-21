@@ -108,6 +108,12 @@
   color: #8b8c96;
   margin-top: 5px;
 }
+.circle-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 @media screen and (min-width: 476px) and (max-width: 1000px) {
   .done-delete-container {
     margin-top: 15px;
@@ -148,24 +154,115 @@
   .label-personal {
     font-size: 1.2rem;
   }
-   .input-personal{
+  .input-personal {
     max-width: 730px;
-   }
-   .form-personal-work-date{
+  }
+  .form-personal-work-date {
     max-width: 740px;
     gap: 23px;
-   }
-   #description-work{
+  }
+  #description-work {
     width: 90vw;
-   }
-   .date-group{
+  }
+  .date-group {
     max-width: 366px;
-   }
-   .input-personal-work{
+  }
+  .input-personal-work {
     width: 18vw;
     max-width: 160px;
-   }
-   .form-personal{
+  }
+  .form-personal {
     max-width: 740px;
-   }
+  }
+}
+@media screen and (min-width: 1001px) {
+  .done-delete-container {
+    width: 47vw;
+    max-width: 840px;
+  }
+  .all-options {
+    width: 12vw;
+    max-width: 190px;
+  }
+  .done-button {
+    width: 7.5vw;
+    height: 3.5vw;
+    font-size: 1.2rem;
+    max-width: 120px;
+    max-height: 45px;
+  }
+  .delete-container {
+    height: 3.5vw;
+    width: 3.5vw;
+    max-width: 45px;
+    max-height: 45px;
+  }
+  .check {
+    width: 2vw;
+    max-width: 30px;
+  }
+  .delete-img {
+    width: 1.7vw;
+    max-width: 30px;
+  }
+  .form-group {
+    width: 47vw;
+    max-width: 840px;
+  }
+  .form-personal-work {
+    width: 47vw;
+    max-width: 840px;
+  }
+  .input-personal {
+    width: 100%;
+    max-width: 840px;
+  }
+  .form-personal-work-date {
+    width: 45.5vw;
+  }
+  .form-group-work {
+    width: 10vw;
+  }
+  .input-personal-work {
+    width: 10vw;
+    font-size: 1.2rem;
+    max-width: 180px;
+  }
+  .date-group {
+    width: 20vw;
+    gap: 20px;
+    max-width: 420px;
+  }
+  .circle {
+    width: clamp(45px, 3vw, 55px);
+    height: clamp(45px, 3vw, 55px);
+  }
+  .level-container {
+    display: flex;
+  }
+  .row {
+    max-width: 840px;
+    width: 47vw;
+  }
+  .skill-mastery-container {
+    width: 15vw;
+  }
+  .input-personal-mastery {
+    width: 100%;
+    font-size: 1.3rem;
+  }
+  .circle-row {
+    flex-direction: row;
+    gap: 25px;
+    font-size: 1.2rem;
+  }
+  .rating-words {
+    align-items: center;
+  }
+  .add-picture {
+    width: 15vw;
+    height: 15vw;
+    max-width: 270px;
+    max-height: 270px;
+  }
 }

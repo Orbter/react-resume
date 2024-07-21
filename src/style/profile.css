@@ -33,6 +33,7 @@
   height: fit-content;
   padding: 10px;
   border-radius: 5px;
+  box-shadow: 9px 7px 11px rgba(0, 0, 0, 0.1);
 }
 .picture-container {
   display: flex;
@@ -91,10 +92,10 @@
 #lastName {
   width: clamp(110px, 25vw, 320px);
 }
-#email{
+#email {
   width: clamp(220px, 50vw, 640px);
 }
-.personal-row{
+.personal-row {
   display: flex;
   gap: 10px;
 }
@@ -108,7 +109,9 @@
 .label-personal {
   width: fit-content;
   padding: 3px;
-  transition: color 0.4s ease, background-color 0.4s ease;
+  transition:
+    color 0.4s ease,
+    background-color 0.4s ease;
 }
 
 .valid-label {
@@ -132,14 +135,14 @@
   padding-top: 10px;
   padding-top: 10px;
 }
-.personal-information-container{
+.personal-information-container {
   display: flex;
   flex-wrap: wrap;
   width: fit-content;
   gap: 5px;
 }
 @media screen and (min-width: 476px) and (max-width: 1000px) {
-  #email{
+  #email {
     width: clamp(220px, 50vw, 640px);
   }
   #name {
@@ -148,20 +151,23 @@
   #lastName {
     width: clamp(110px, 25vw, 320px);
   }
-  .form-group{
+  .form-group {
     max-height: 12vw;
   }
-  .add-picture{
+  .add-picture {
     width: 20vw;
     height: 20vw;
   }
-  .personal-information-container{
+  .personal-information-container {
     gap: 10px;
   }
 }
 @media screen and (min-width: 1001px) {
-  .card{
+  .card {
     width: 95%;
+    max-width: 850px;
   }
-
+  .personal-information-container {
+    max-width: 840px;
+  }
 }

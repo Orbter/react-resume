@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #d1d1d1;
+  background-color: #f1eeee;
 }
 ul {
   margin: 0;
@@ -15,7 +15,14 @@ ul {
 .main-contact {
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  padding-top: 25px;
   align-items: center;
   gap: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@media screen and (min-width: 1001px) {
+  .main-contact {
+    padding-left: 10px;
+  }
 }

@@ -75,17 +75,17 @@ function SkillCard({ isOpen, onClick }) {
   };
 
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Skills</h1>
-        <div className="action">
+        <h1 className='card-header'>Skills</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -94,10 +94,10 @@ function SkillCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className="form-personal-work">
-          <div className="form-group">
+        <form className='form-personal-work'>
+          <div className='form-group'>
             <label
-              htmlFor="skill"
+              htmlFor='skill'
               className={
                 'label-personal' + (validation['skill'] ? ' valid-label' : '')
               }
@@ -116,33 +116,35 @@ function SkillCard({ isOpen, onClick }) {
               }
             />
           </div>
-          <div className="row">
-            <div className="level-container">
+          <div className='row'>
+            <div className='level-container'>
               <label
-                htmlFor="level"
+                htmlFor='level'
                 className={
                   'label-personal' + (validation['level'] ? ' valid-label' : '')
                 }
               >
                 Level
               </label>
-              <div className="circle-rating">
-                {[1, 2, 3, 4, 5].map((index) => (
-                  <div
-                    className={'circle' + (index <= rating ? ' active' : '')}
-                    id={'circle' + index}
-                    key={index}
-                    onClick={() => handleRating(index)}
-                  ></div>
-                ))}
-              </div>
-              <div className="rating-words">
-                <p className="rating-skill">{optionText}</p>
+              <div className='circle-row'>
+                <div className='circle-rating'>
+                  {[1, 2, 3, 4, 5].map((index) => (
+                    <div
+                      className={'circle' + (index <= rating ? ' active' : '')}
+                      id={'circle' + index}
+                      key={index}
+                      onClick={() => handleRating(index)}
+                    ></div>
+                  ))}
+                </div>
+                <div className='rating-words'>
+                  <p className='rating-skill'>{optionText}</p>
+                </div>
               </div>
             </div>
-            <div className="skill-mastery-container">
+            <div className='skill-mastery-container'>
               <label
-                htmlFor="mastery"
+                htmlFor='mastery'
                 className={
                   'label-personal' +
                   (validation.skillMastery ? ' valid-label' : '')
@@ -151,7 +153,7 @@ function SkillCard({ isOpen, onClick }) {
                 Skill mastery
               </label>
               <select
-                name="skillMastery"
+                name='skillMastery'
                 value={formData.skillMastery}
                 onChange={handleChange}
                 className={
@@ -167,13 +169,13 @@ function SkillCard({ isOpen, onClick }) {
           </div>
         </form>
 
-        <div className="done-delete-container">
-          <div className="all-options">
-            <div className="delete-container">
-              <img src={deleteThis} alt="delete" className="delete-img" />
+        <div className='done-delete-container'>
+          <div className='all-options'>
+            <div className='delete-container'>
+              <img src={deleteThis} alt='delete' className='delete-img' />
             </div>
-            <button className="done-button">
-              <img src={ok} alt="vi" className="check" />
+            <button className='done-button'>
+              <img src={ok} alt='vi' className='check' />
               Done
             </button>
           </div>

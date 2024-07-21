@@ -4,17 +4,17 @@ import downLoadImg from './assets/download.svg';
 
 function NavBar() {
   return (
-    <nav className="nav-bar">
-      <ul className="nav-list">
-        <li className="nav-list-li">
-          <button className="save-button button">
-            <img src={saveImg} alt="save" className="save-img" />
+    <nav className='nav-bar'>
+      <ul className='nav-list'>
+        <li className='nav-list-li'>
+          <button className='save-button button'>
+            <img src={saveImg} alt='save' className='save-img' />
             Save
           </button>
         </li>
-        <li className="nav-list-li">
-          <button className="download-button button">
-            <img src={downLoadImg} alt="save" className="download-img" />
+        <li className='nav-list-li'>
+          <button className='download-button button'>
+            <img src={downLoadImg} alt='save' className='download-img' />
             Download
           </button>
         </li>
