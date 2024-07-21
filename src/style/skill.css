@@ -23,8 +23,7 @@
   min-width: 28px;
   min-height: 28px;
 }
-.font-label {
-}
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -118,16 +117,18 @@
     font-size: 1.5rem;
     width: 110px;
     height: 6vw;
+    max-height: 40px;
   }
   .check {
     width: 1.5rem;
   }
   .delete-img {
-    width: 3.5vw;
+    width: 3vw;
   }
   .delete-container {
     height: 6vw;
     width: 6vw;
+    max-height: 40px;
   }
   .all-options {
     width: clamp(150px, 22vw, 175px);
@@ -147,4 +148,24 @@
   .label-personal {
     font-size: 1.2rem;
   }
+   .input-personal{
+    max-width: 730px;
+   }
+   .form-personal-work-date{
+    max-width: 740px;
+    gap: 23px;
+   }
+   #description-work{
+    width: 90vw;
+   }
+   .date-group{
+    max-width: 366px;
+   }
+   .input-personal-work{
+    width: 18vw;
+    max-width: 160px;
+   }
+   .form-personal{
+    max-width: 740px;
+   }
 }

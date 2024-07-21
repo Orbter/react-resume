@@ -1,0 +1,53 @@
+:root {
+    --grey: #e2e2e3; /* Define the primary color variable */
+    --primary-blue-color: #29c2f1; /* Define the primary color variable */
+  }
+
+
+@media screen and (min-width: 1001px) {
+    .main-contact{
+        width: 50vw;
+        height: calc(96.5vh - 60px);
+        padding: 0;
+        padding-top: 25px;
+        align-items: center;
+    }
+    .a4-page{
+        width: 50vw;
+        height: calc(100vh - 85px);
+        display: flex;
+        align-items: start;
+        justify-content: center;
+        padding-top: 25px;
+    }
+    .main-container{
+    display: flex;
+    }
+    .a4{
+        width: 45vw;
+        height: calc(45vw * 1.414); /* ratio 1.414 */
+        background-color: white;
+        display: flex;
+        z-index: 1;
+        position: relative;
+    }
+    .a4-nav-bar{
+        height: calc(45vw * 1.414); 
+        width: 17vw;
+        background-color: rgb(40, 40, 49);
+        z-index: 2;
+
+    }
+    .a4-header{
+        width: 40vw;
+        z-index: 4;
+        background-color: var(--primary-blue-color);
+        height: 12vw;
+        position: absolute;
+        top: 5%; /* Ensures it stays at the top */
+        left: 6%;
+    }
+    .a4-padding{
+
+    }
+}

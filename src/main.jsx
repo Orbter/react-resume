@@ -7,6 +7,7 @@ import WorkCard from './work-experience/work-card.jsx';
 import EducationCard from './education/education-card.jsx';
 import SkillCard from './skills/skill-card.jsx';
 import LanguageCard from './languageChoice/language-card.jsx';
+import A4 from './a4Creator/a4Page.jsx';
 import './index.css';
 function App() {
   const [openCard, setOpenCard] = useState({
@@ -30,7 +31,8 @@ function App() {
   return (
     <React.StrictMode>
       <NavBar />
-      <main className="main-contact">
+      <div className='main-container'>
+        <main className="main-contact">
         <ProfileCard
           isOpen={openCard.profile}
           onClick={() => openOrClose('profile')}
@@ -48,7 +50,9 @@ function App() {
           isOpen={openCard.language}
           onClick={() => openOrClose('language')}
         />
-      </main>
+        </main>
+        <A4/>
+      </div>
     </React.StrictMode>
   );
 }

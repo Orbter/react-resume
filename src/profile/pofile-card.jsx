@@ -39,6 +39,7 @@ function ProfileCard({ isOpen, onClick }) {
 
     if (name === 'phone') {
       formattedValue = formatPhoneNumber(value);
+      
       setValidation((prevState) => ({
         ...prevState,
         phone: isValueValid(value, 'phone'),
@@ -85,20 +86,20 @@ function ProfileCard({ isOpen, onClick }) {
       type: 'text',
       example: 'poding147@gmail.com',
     },
-    {
-      label: 'Phone number',
-      name: 'phone',
-      type: 'tel',
-      example: '053-957-4388',
-    },
-    {
-      label: 'Address',
-      name: 'address',
-      type: 'text',
-      example: 'Tel aviv, vaitsman 18',
-    },
-  ];
 
+  ];
+const personalForms = [    {
+  label: 'Phone number',
+  name: 'phone',
+  type: 'tel',
+  example: '053-957-4388',
+},
+{
+  label: 'Address',
+  name: 'address',
+  type: 'text',
+  example: 'Tel aviv, vaitsman 18',
+},]
   return (
     <div className="card">
       <div
@@ -121,13 +122,43 @@ function ProfileCard({ isOpen, onClick }) {
         ref={contentRef}
       >
         <form className="form-personal">
+          <div className='personal-row'>
           <div className="picture-container">
             <label className="label-personal label-picture">add picture</label>
             <div className="add-picture">
               <img src={person} alt="profile" />
             </div>
-          </div>
+          </div> 
+          <div className='personal-information-container'>
           {formFields.map((field, index) => (
+            <div className="form-group personal-information" key={index}>
+              <label
+                htmlFor={field.name}
+                className={
+                  'label-personal' +
+                  (validation[field.name] ? ' valid-label' : '')
+                }
+              >
+                {field.label}
+              </label>
+              <input
+                type={field.type}
+                name={field.name}
+                id={field.name}
+                placeholder={field.example}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className={
+                  'input-personal' +
+                  (validation[field.name] ? ' valid-input' : '')
+                }
+              />
+            </div>
+          ))}
+          </div>
+          </div>
+          <div className='general-information'>
+          {personalForms.map((field, index) => (
             <div className="form-group" key={index}>
               <label
                 htmlFor={field.name}
@@ -152,6 +183,7 @@ function ProfileCard({ isOpen, onClick }) {
               />
             </div>
           ))}
+          </div>
         </form>
       </div>
     </div>
