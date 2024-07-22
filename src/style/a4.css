@@ -17,8 +17,6 @@
     align-items: start;
     justify-content: center;
     padding-top: 25px;
-    max-width: 800px;
-    max-height: 1131px;
   }
   .main-container {
     display: flex;
@@ -30,6 +28,8 @@
     display: flex;
     z-index: 1;
     position: relative;
+    max-height: 1131px;
+    max-width: 800px;
   }
   .a4-nav-bar {
     height: calc(45vw * 1.414);
@@ -37,6 +37,7 @@
     background-color: rgb(40, 40, 49);
     z-index: 2;
     max-width: 300px;
+    max-height: 1131px;
   }
   .a4-header {
     width: 37vw;
