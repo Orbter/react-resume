@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import down from '../assets/down.svg';
 import up from '../assets/up.svg';
 import deleteThis from '../assets/delete.svg';
@@ -6,19 +6,24 @@ import ok from '../assets/ok.svg';
 import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
+import { SkillContext } from '../formProvider';
 
 function SkillCard({ isOpen, onClick }) {
-  const [formData, setFormData] = useState({
+  const { skillData, setSkillData } = useContext(SkillContext);
+  const [currentSkill, setCurrentSkill] = useState({
     skill: '',
     level: 0,
-    skillMastery: '',
+    type: 'Hard',
   });
+  const [newSkill, setNewSkill] = useState('');
+  const [level, setLevel] = useState(0);
+  const [type, setType] = useState('');
+
   const [validation, setValidation] = useState({
     skill: false,
     level: false,
     skillMastery: false,
   });
-  const [rating, setRating] = useState(0);
   const [optionText, setOptionText] = useState('make a choice');
 
   const optionMastery = [
@@ -32,25 +37,36 @@ function SkillCard({ isOpen, onClick }) {
     { value: '01', label: 'Hard' },
     { value: '02', label: 'Soft' },
   ];
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    if (name === 'skillMastery') {
-      setValidation((prevState) => ({
-        ...prevState,
-        skillMastery: true,
-      }));
-    } else {
-      setValidation((prevState) => ({
-        ...prevState,
-        [name]: isValueValid(value),
-      }));
-    }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const handelSkillChange = (event) => {
+    const updateSkill = { ...currentSkill, skill: event.target.value };
+    setCurrentSkill(updateSkill);
+    setValidation((prevState) => ({
+      ...prevState,
+      skill: true,
+    }));
+    setSkillData((prevSkills) =>
+      prevSkills.map((skill, index) =>
+        index === prevSkills.length - 1 ? updateSkill : skill,
+      ),
+    );
   };
+
+  const handleTypeChange = (event) => {
+    setType(event.target.value);
+  };
+
+  const handleAddSkill = () => {
+    if (newSkill.trim() !== '') {
+      setSkillData((prevSkills) => [
+        ...prevSkills,
+        { skill: newSkill, level, type },
+      ]);
+      setNewSkill('');
+      setLevel(0);
+      setType('Hard');
+    }
+  };
+
   const changeTextChoice = (number) => {
     const level = optionMastery.find((option) => option.value === number);
     setOptionText(level.label);
@@ -66,7 +82,7 @@ function SkillCard({ isOpen, onClick }) {
     }
   }, [isOpen]);
   const handleRating = (value) => {
-    setRating(value);
+    setLevel(value);
     changeTextChoice(value);
     setValidation((prevState) => ({
       ...prevState,
@@ -109,8 +125,8 @@ function SkillCard({ isOpen, onClick }) {
               name={'skill'}
               id={'skill'}
               placeholder={'fastest runner'}
-              value={formData['skill']}
-              onChange={handleChange}
+              value={newSkill}
+              onChange={handelSkillChange}
               className={
                 'input-personal' + (validation['skill'] ? ' valid-input' : '')
               }
@@ -130,7 +146,7 @@ function SkillCard({ isOpen, onClick }) {
                 <div className='circle-rating'>
                   {[1, 2, 3, 4, 5].map((index) => (
                     <div
-                      className={'circle' + (index <= rating ? ' active' : '')}
+                      className={'circle' + (index <= level ? ' active' : '')}
                       id={'circle' + index}
                       key={index}
                       onClick={() => handleRating(index)}
@@ -154,8 +170,8 @@ function SkillCard({ isOpen, onClick }) {
               </label>
               <select
                 name='skillMastery'
-                value={formData.skillMastery}
-                onChange={handleChange}
+                value={type}
+                onChange={handleTypeChange}
                 className={
                   'input-personal-mastery ' +
                   (validation.skillMastery ? 'valid-input' : 'border')
@@ -174,7 +190,7 @@ function SkillCard({ isOpen, onClick }) {
             <div className='delete-container'>
               <img src={deleteThis} alt='delete' className='delete-img' />
             </div>
-            <button className='done-button'>
+            <button className='done-button' onClick={handleAddSkill}>
               <img src={ok} alt='vi' className='check' />
               Done
             </button>
