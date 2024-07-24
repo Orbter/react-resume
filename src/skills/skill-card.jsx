@@ -6,14 +6,15 @@ import ok from '../assets/ok.svg';
 import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
-import { SkillContext } from '../formProvider';
+import { ResumeContext } from '../formProvider';
 
 function SkillCard({ isOpen, onClick }) {
-  const { skillData, setSkillData } = useContext(SkillContext);
+  const { skillData, setSkillData } = useContext(ResumeContext);
   const [currentSkill, setCurrentSkill] = useState({
     skill: '',
     level: 0,
     type: 'Hard',
+    index: skillData[skillData.length - 1]?.index + 1 || 0,
   });
   const [newSkill, setNewSkill] = useState('');
   const [level, setLevel] = useState(0);
@@ -44,6 +45,19 @@ function SkillCard({ isOpen, onClick }) {
       ...prevState,
       skill: true,
     }));
+    setNewSkill(updateSkill.skill);
+    const current = skillData.findIndex();
+    console.log(current);
+  };
+  const handelLevelChange = (value) => {
+    const updateSkill = { ...currentSkill, level: value };
+    changeTextChoice(value);
+    setCurrentSkill(updateSkill);
+    setValidation((prevState) => ({
+      ...prevState,
+      level: true,
+    }));
+    setLevel(updateSkill.level);
     setSkillData((prevSkills) =>
       prevSkills.map((skill, index) =>
         index === prevSkills.length - 1 ? updateSkill : skill,
@@ -52,7 +66,17 @@ function SkillCard({ isOpen, onClick }) {
   };
 
   const handleTypeChange = (event) => {
-    setType(event.target.value);
+    const updateSkill = { ...currentSkill, type: event.target.value };
+    setValidation((prevState) => ({
+      ...prevState,
+      type: true,
+    }));
+    setType(updateSkill.type);
+    setSkillData((prevSkills) =>
+      prevSkills.map((skill, index) =>
+        index === prevSkills.length - 1 ? updateSkill : skill,
+      ),
+    );
   };
 
   const handleAddSkill = () => {
@@ -81,14 +105,6 @@ function SkillCard({ isOpen, onClick }) {
       setMaxHeight('0px');
     }
   }, [isOpen]);
-  const handleRating = (value) => {
-    setLevel(value);
-    changeTextChoice(value);
-    setValidation((prevState) => ({
-      ...prevState,
-      level: true,
-    }));
-  };
 
   return (
     <div className='card'>
@@ -149,7 +165,7 @@ function SkillCard({ isOpen, onClick }) {
                       className={'circle' + (index <= level ? ' active' : '')}
                       id={'circle' + index}
                       key={index}
-                      onClick={() => handleRating(index)}
+                      onClick={() => handelLevelChange(index)}
                     ></div>
                   ))}
                 </div>

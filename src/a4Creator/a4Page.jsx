@@ -1,10 +1,13 @@
 import { useState, useContext } from 'react';
 
 import '../style/a4.css';
-import { SkillContext } from '../formProvider';
+import { ResumeContext } from '../formProvider';
 
 function A4() {
-  const { skillData } = useContext(SkillContext);
+  const { skillData } = useContext(ResumeContext);
+  console.log('skillData');
+
+  console.log(skillData);
 
   return (
     <div className='a4-page'>
