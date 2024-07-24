@@ -4,7 +4,9 @@ import '../style/a4.css';
 import { ResumeContext } from '../formProvider';
 
 function A4() {
-  const { skillData } = useContext(ResumeContext);
+  const { objSeen, objNotSeen } = useContext(ResumeContext);
+  const { skillData, setSkillData } = objSeen;
+
   console.log('skillData');
 
   console.log(skillData);

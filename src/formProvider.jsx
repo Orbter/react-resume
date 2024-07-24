@@ -44,7 +44,7 @@ export const FormProvider = ({ children }) => {
   };
 
   return (
-    <ResumeContext.Provider value={(objSeen, objNotSeen)}>
+    <ResumeContext.Provider value={{ objSeen, objNotSeen }}>
       {children}
     </ResumeContext.Provider>
   );

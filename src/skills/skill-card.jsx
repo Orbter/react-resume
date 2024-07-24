@@ -9,7 +9,10 @@ import '../style/skill.css';
 import { ResumeContext } from '../formProvider';
 
 function SkillCard({ isOpen, onClick }) {
-  const { skillData, setSkillData } = useContext(ResumeContext);
+  const { objSeen, objNotSeen } = useContext(ResumeContext);
+  const { skillData, setSkillData } = objSeen;
+  const { skillDataCopy, setSkillDataCopy } = objSeen;
+
   const [currentSkill, setCurrentSkill] = useState({
     skill: '',
     level: 0,
@@ -46,8 +49,14 @@ function SkillCard({ isOpen, onClick }) {
       skill: true,
     }));
     setNewSkill(updateSkill.skill);
-    const current = skillData.findIndex();
-    console.log(current);
+    const IndexSkill = skillData.findIndex(
+      (obj) => obj.index === updateSkill.index,
+    );
+    if (IndexSkill !== -1) {
+      skillData[IndexSkill].skill = updateSkill.skill;
+      setSkillData(skillData[IndexSkill].skill);
+    }
+    console.log(IndexSkill);
   };
   const handelLevelChange = (value) => {
     const updateSkill = { ...currentSkill, level: value };
@@ -82,6 +91,10 @@ function SkillCard({ isOpen, onClick }) {
   const handleAddSkill = () => {
     if (newSkill.trim() !== '') {
       setSkillData((prevSkills) => [
+        ...prevSkills,
+        { skill: newSkill, level, type },
+      ]);
+      setSkillDataCopy((prevSkills) => [
         ...prevSkills,
         { skill: newSkill, level, type },
       ]);
