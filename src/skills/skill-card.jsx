@@ -11,7 +11,7 @@ import { ResumeContext } from '../formProvider';
 function SkillCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
   const { skillData, setSkillData } = objSeen;
-  const { skillDataCopy, setSkillDataCopy } = objSeen;
+  const { skillDataCopy, setSkillDataCopy } = objNotSeen;
 
   const [currentSkill, setCurrentSkill] = useState({
     skill: '',
@@ -49,13 +49,32 @@ function SkillCard({ isOpen, onClick }) {
       skill: true,
     }));
     setNewSkill(updateSkill.skill);
+    console.log(skillData);
     const IndexSkill = skillData.findIndex(
-      (obj) => obj.index === updateSkill.index,
+      (obj) => obj.index === updateSkill.index
     );
     if (IndexSkill !== -1) {
-      skillData[IndexSkill].skill = updateSkill.skill;
-      setSkillData(skillData[IndexSkill].skill);
+      const updatedSkills = skillData.map((skill) => {
+        if (skill.index === IndexSkill) {
+          return {
+            ...skill,
+            skill: updateSkill.skill,
+          };
+        }
+      });
+      setSkillData(updatedSkills);
+    } else {
+      setSkillData((prevSkills) => [
+        ...prevSkills,
+        {
+          skill: updateSkill.skill,
+          level: updateSkill.level,
+          type: updateSkill.type,
+          index: skillData[skillData.length - 1]?.index + 1 || 0,
+        },
+      ]);
     }
+
     console.log(IndexSkill);
   };
   const handelLevelChange = (value) => {
@@ -67,11 +86,6 @@ function SkillCard({ isOpen, onClick }) {
       level: true,
     }));
     setLevel(updateSkill.level);
-    setSkillData((prevSkills) =>
-      prevSkills.map((skill, index) =>
-        index === prevSkills.length - 1 ? updateSkill : skill,
-      ),
-    );
   };
 
   const handleTypeChange = (event) => {
@@ -83,8 +97,8 @@ function SkillCard({ isOpen, onClick }) {
     setType(updateSkill.type);
     setSkillData((prevSkills) =>
       prevSkills.map((skill, index) =>
-        index === prevSkills.length - 1 ? updateSkill : skill,
-      ),
+        index === prevSkills.length - 1 ? updateSkill : skill
+      )
     );
   };
 
@@ -120,17 +134,17 @@ function SkillCard({ isOpen, onClick }) {
   }, [isOpen]);
 
   return (
-    <div className='card'>
+    <div className="card">
       <div
         className={isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className='card-header'>Skills</h1>
-        <div className='action'>
+        <h1 className="card-header">Skills</h1>
+        <div className="action">
           <img
             src={isOpen ? down : up}
-            alt='open/close'
-            className='action-img'
+            alt="open/close"
+            className="action-img"
           />
         </div>
       </div>
@@ -139,10 +153,10 @@ function SkillCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className='form-personal-work'>
-          <div className='form-group'>
+        <form className="form-personal-work">
+          <div className="form-group">
             <label
-              htmlFor='skill'
+              htmlFor="skill"
               className={
                 'label-personal' + (validation['skill'] ? ' valid-label' : '')
               }
@@ -161,18 +175,18 @@ function SkillCard({ isOpen, onClick }) {
               }
             />
           </div>
-          <div className='row'>
-            <div className='level-container'>
+          <div className="row">
+            <div className="level-container">
               <label
-                htmlFor='level'
+                htmlFor="level"
                 className={
                   'label-personal' + (validation['level'] ? ' valid-label' : '')
                 }
               >
                 Level
               </label>
-              <div className='circle-row'>
-                <div className='circle-rating'>
+              <div className="circle-row">
+                <div className="circle-rating">
                   {[1, 2, 3, 4, 5].map((index) => (
                     <div
                       className={'circle' + (index <= level ? ' active' : '')}
@@ -182,14 +196,14 @@ function SkillCard({ isOpen, onClick }) {
                     ></div>
                   ))}
                 </div>
-                <div className='rating-words'>
-                  <p className='rating-skill'>{optionText}</p>
+                <div className="rating-words">
+                  <p className="rating-skill">{optionText}</p>
                 </div>
               </div>
             </div>
-            <div className='skill-mastery-container'>
+            <div className="skill-mastery-container">
               <label
-                htmlFor='mastery'
+                htmlFor="mastery"
                 className={
                   'label-personal' +
                   (validation.skillMastery ? ' valid-label' : '')
@@ -198,7 +212,7 @@ function SkillCard({ isOpen, onClick }) {
                 Skill mastery
               </label>
               <select
-                name='skillMastery'
+                name="skillMastery"
                 value={type}
                 onChange={handleTypeChange}
                 className={
@@ -214,13 +228,13 @@ function SkillCard({ isOpen, onClick }) {
           </div>
         </form>
 
-        <div className='done-delete-container'>
-          <div className='all-options'>
-            <div className='delete-container'>
-              <img src={deleteThis} alt='delete' className='delete-img' />
+        <div className="done-delete-container">
+          <div className="all-options">
+            <div className="delete-container">
+              <img src={deleteThis} alt="delete" className="delete-img" />
             </div>
-            <button className='done-button' onClick={handleAddSkill}>
-              <img src={ok} alt='vi' className='check' />
+            <button className="done-button" onClick={handleAddSkill}>
+              <img src={ok} alt="vi" className="check" />
               Done
             </button>
           </div>
