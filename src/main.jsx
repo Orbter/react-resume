@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import NavBar from './NavBar';
-import ResumePaper from './resumeVs';
 import ProfileCard from './profile/pofile-card.jsx';
 import WorkCard from './work-experience/work-card.jsx';
 import EducationCard from './education/education-card.jsx';
@@ -34,8 +33,8 @@ function App() {
     <React.StrictMode>
       <NavBar />
       <FormProvider>
-        <div className='main-container'>
-          <main className='main-contact'>
+        <div className="main-container">
+          <main className="main-contact">
             <ProfileCard
               isOpen={openCard.profile}
               onClick={() => openOrClose('profile')}
