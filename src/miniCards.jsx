@@ -1,16 +1,14 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import editIcon from './assets/editIcon.svg';
 import plusIcon from './assets/plus.svg';
-import { ResumeContext } from '../formProvider';
 const levelText = (level, options) => {
   const mastery = options.find((option) => option.value === level);
   return mastery.label;
 };
 
-function MiniCardSkill() {
-  const { objSeen, objNotSeen } = useContext(ResumeContext);
+function MiniCardSkill(skillData) {
+  console.log(skillData); // Debugging line
 
-  const { skillData, setSkillData } = objSeen;
   const optionMastery = [
     { value: 1, label: 'Novice' },
     { value: 2, label: 'Beginner' },
@@ -21,7 +19,7 @@ function MiniCardSkill() {
   return (
     <div className="mini-card">
       <ul>
-        {skillData.map((skill, index) => (
+        {skillData.skill.map((skill, index) => (
           <div className="mini-card-container" key={index}>
             <div className="miniCard-content">
               <h3 className="mini-card-header">{skill.skill}</h3>
@@ -44,3 +42,5 @@ function MiniCardSkill() {
     </div>
   );
 }
+
+export default MiniCardSkill;

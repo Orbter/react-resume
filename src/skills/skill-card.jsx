@@ -7,6 +7,7 @@ import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 import { ResumeContext } from '../formProvider';
+import MiniCardSkill from '../miniCards';
 
 function SkillCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
@@ -22,6 +23,7 @@ function SkillCard({ isOpen, onClick }) {
   const [newSkill, setNewSkill] = useState('');
   const [level, setLevel] = useState(0);
   const [type, setType] = useState('');
+  const [currentDiv, setCurrentDiv] = useState('largeDiv');
 
   const [validation, setValidation] = useState({
     skill: false,
@@ -115,6 +117,7 @@ function SkillCard({ isOpen, onClick }) {
       setNewSkill('');
       setLevel(0);
       setType('Hard');
+      switchDiv();
     }
   };
 
@@ -132,6 +135,10 @@ function SkillCard({ isOpen, onClick }) {
       setMaxHeight('0px');
     }
   }, [isOpen]);
+
+  const switchDiv = () => {
+    setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
+  };
 
   return (
     <div className="card">
@@ -153,92 +160,103 @@ function SkillCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className="form-personal-work">
-          <div className="form-group">
-            <label
-              htmlFor="skill"
-              className={
-                'label-personal' + (validation['skill'] ? ' valid-label' : '')
-              }
-            >
-              Skill
-            </label>
-            <input
-              type={'text'}
-              name={'skill'}
-              id={'skill'}
-              placeholder={'fastest runner'}
-              value={newSkill}
-              onChange={handelSkillChange}
-              className={
-                'input-personal' + (validation['skill'] ? ' valid-input' : '')
-              }
-            />
-          </div>
-          <div className="row">
-            <div className="level-container">
-              <label
-                htmlFor="level"
-                className={
-                  'label-personal' + (validation['level'] ? ' valid-label' : '')
-                }
-              >
-                Level
-              </label>
-              <div className="circle-row">
-                <div className="circle-rating">
-                  {[1, 2, 3, 4, 5].map((index) => (
-                    <div
-                      className={'circle' + (index <= level ? ' active' : '')}
-                      id={'circle' + index}
-                      key={index}
-                      onClick={() => handelLevelChange(index)}
-                    ></div>
-                  ))}
+        {currentDiv === 'largeDiv' ? (
+          <>
+            <form className="form-personal-work">
+              <div className="form-group">
+                <label
+                  htmlFor="skill"
+                  className={
+                    'label-personal' +
+                    (validation['skill'] ? ' valid-label' : '')
+                  }
+                >
+                  Skill
+                </label>
+                <input
+                  type={'text'}
+                  name={'skill'}
+                  id={'skill'}
+                  placeholder={'fastest runner'}
+                  value={newSkill}
+                  onChange={handelSkillChange}
+                  className={
+                    'input-personal' +
+                    (validation['skill'] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+              <div className="row">
+                <div className="level-container">
+                  <label
+                    htmlFor="level"
+                    className={
+                      'label-personal' +
+                      (validation['level'] ? ' valid-label' : '')
+                    }
+                  >
+                    Level
+                  </label>
+                  <div className="circle-row">
+                    <div className="circle-rating">
+                      {[1, 2, 3, 4, 5].map((index) => (
+                        <div
+                          className={
+                            'circle' + (index <= level ? ' active' : '')
+                          }
+                          id={'circle' + index}
+                          key={index}
+                          onClick={() => handelLevelChange(index)}
+                        ></div>
+                      ))}
+                    </div>
+                    <div className="rating-words">
+                      <p className="rating-skill">{optionText}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="rating-words">
-                  <p className="rating-skill">{optionText}</p>
+                <div className="skill-mastery-container">
+                  <label
+                    htmlFor="mastery"
+                    className={
+                      'label-personal' +
+                      (validation.skillMastery ? ' valid-label' : '')
+                    }
+                  >
+                    Skill mastery
+                  </label>
+                  <select
+                    name="skillMastery"
+                    value={type}
+                    onChange={handleTypeChange}
+                    className={
+                      'input-personal-mastery ' +
+                      (validation.skillMastery ? 'valid-input' : 'border')
+                    }
+                  >
+                    {hardOrSoft.map((mastery) => (
+                      <option key={mastery.value}>{mastery.label}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
-            </div>
-            <div className="skill-mastery-container">
-              <label
-                htmlFor="mastery"
-                className={
-                  'label-personal' +
-                  (validation.skillMastery ? ' valid-label' : '')
-                }
-              >
-                Skill mastery
-              </label>
-              <select
-                name="skillMastery"
-                value={type}
-                onChange={handleTypeChange}
-                className={
-                  'input-personal-mastery ' +
-                  (validation.skillMastery ? 'valid-input' : 'border')
-                }
-              >
-                {hardOrSoft.map((mastery) => (
-                  <option key={mastery.value}>{mastery.label}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </form>
+            </form>
 
-        <div className="done-delete-container">
-          <div className="all-options">
-            <div className="delete-container">
-              <img src={deleteThis} alt="delete" className="delete-img" />
+            <div className="done-delete-container">
+              <div className="all-options">
+                <div className="delete-container">
+                  <img src={deleteThis} alt="delete" className="delete-img" />
+                </div>
+                <button className="done-button" onClick={handleAddSkill}>
+                  <img src={ok} alt="vi" className="check" />
+                  Done
+                </button>
+              </div>
             </div>
-            <button className="done-button" onClick={handleAddSkill}>
-              <img src={ok} alt="vi" className="check" />
-              Done
-            </button>
-          </div>
-        </div>
+          </>
+        ) : (
+          <MiniCardSkill skill={skillData} />
+        )}
       </div>
     </div>
   );
