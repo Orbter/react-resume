@@ -36,10 +36,12 @@ function MiniCardSkill(skillData) {
         ))}
       </ul>
       <div className="language-container">
-        <div className="plus-container">
-          <img src={plusIcon} className="plus"></img>
+        <div className="add-container">
+          <div className="plus-container">
+            <img src={plusIcon} className="plus"></img>
+          </div>
+          <p className="add-language">Add Skill</p>
         </div>
-        <p className="add-language">Add Language</p>
       </div>
     </div>
   );
