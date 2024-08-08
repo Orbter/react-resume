@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import editIcon from './assets/editIcon.svg';
 import plusIcon from './assets/plus.svg';
+import './style/miniCard.css';
+
 const levelText = (level, options) => {
   const mastery = options.find((option) => option.value === level);
   return mastery.label;
