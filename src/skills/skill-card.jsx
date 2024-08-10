@@ -148,10 +148,6 @@ function SkillCard({ isOpen, onClick }) {
 
   const handleAddSkill = () => {
     if (newSkill.trim() !== '') {
-      setSkillData((prevSkills) => [
-        ...prevSkills,
-        { skill: newSkill, level, type },
-      ]);
       setSkillDataCopy((prevSkills) => [
         ...prevSkills,
         { skill: newSkill, level, type },
