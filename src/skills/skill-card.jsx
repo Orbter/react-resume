@@ -51,7 +51,6 @@ function SkillCard({ isOpen, onClick }) {
       skill: true,
     }));
     setNewSkill(updateSkill.skill);
-    console.log(skillData);
     const IndexSkill = skillData.findIndex(
       (obj) => obj.index === updateSkill.index
     );
@@ -76,8 +75,6 @@ function SkillCard({ isOpen, onClick }) {
         },
       ]);
     }
-
-    console.log(IndexSkill);
   };
   const handelLevelChange = (value) => {
     const updateSkill = { ...currentSkill, level: value };
@@ -88,20 +85,65 @@ function SkillCard({ isOpen, onClick }) {
       level: true,
     }));
     setLevel(updateSkill.level);
+    const IndexSkill = skillData.findIndex(
+      (obj) => obj.index === updateSkill.index
+    );
+    if (IndexSkill !== -1) {
+      const updatedSkills = skillData.map((skill) => {
+        if (skill.index === IndexSkill) {
+          return {
+            ...skill,
+            level: updateSkill.level,
+          };
+        }
+      });
+      setSkillData(updatedSkills);
+    } else {
+      setSkillData((prevSkills) => [
+        ...prevSkills,
+        {
+          skill: updateSkill.skill,
+          level: updateSkill.level,
+          type: updateSkill.type,
+          index: skillData[skillData.length - 1]?.index + 1 || 0,
+        },
+      ]);
+    }
   };
 
   const handleTypeChange = (event) => {
     const updateSkill = { ...currentSkill, type: event.target.value };
+    setCurrentSkill(updateSkill);
+
     setValidation((prevState) => ({
       ...prevState,
       type: true,
     }));
     setType(updateSkill.type);
-    setSkillData((prevSkills) =>
-      prevSkills.map((skill, index) =>
-        index === prevSkills.length - 1 ? updateSkill : skill
-      )
+    const IndexSkill = skillData.findIndex(
+      (obj) => obj.index === updateSkill.index
     );
+    if (IndexSkill !== -1) {
+      const updatedSkills = skillData.map((skill) => {
+        if (skill.index === IndexSkill) {
+          return {
+            ...skill,
+            type: updateSkill.type,
+          };
+        }
+      });
+      setSkillData(updatedSkills);
+    } else {
+      setSkillData((prevSkills) => [
+        ...prevSkills,
+        {
+          skill: updateSkill.skill,
+          level: updateSkill.level,
+          type: updateSkill.type,
+          index: skillData[skillData.length - 1]?.index + 1 || 0,
+        },
+      ]);
+    }
   };
 
   const handleAddSkill = () => {

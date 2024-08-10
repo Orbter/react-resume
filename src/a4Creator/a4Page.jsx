@@ -18,11 +18,16 @@ function A4() {
             <h2>Skills</h2>
             <ul>
               {Array.isArray(skillData)
-                ? skillData.map((skill, index) => (
-                    <li key={index}>
-                      {skill.skill} - Level: {skill.level} - Type: {skill.type}
-                    </li>
-                  ))
+                ? skillData.map((skill, index) =>
+                    skill.skill !== '' ? (
+                      <li key={index}>
+                        {skill.skill} - Level: {skill.level} - Type:{' '}
+                        {skill.type}
+                      </li>
+                    ) : (
+                      ''
+                    )
+                  )
                 : setSkillData.skill}
             </ul>
           </div>
