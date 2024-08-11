@@ -8,20 +8,22 @@ const levelText = (level, options) => {
   return mastery.label;
 };
 
-function MiniCardSkill(skillData) {
+function MiniCardSkill({ skillData, setCurrentDiv }) {
   console.log(skillData); // Debugging line
-
+  const addSkill = () => {
+    setCurrentDiv('largeDiv');
+  };
   const optionMastery = [
-    { value: 1, label: 'Novice' },
-    { value: 2, label: 'Beginner' },
-    { value: 3, label: 'Intermediate' },
-    { value: 4, label: 'Advanced' },
-    { value: 5, label: 'Master' },
+    { value: 0, label: 'Novice' },
+    { value: 1, label: 'Beginner' },
+    { value: 2, label: 'Intermediate' },
+    { value: 3, label: 'Advanced' },
+    { value: 4, label: 'Master' },
   ];
   return (
     <div className="mini-card">
       <ul>
-        {skillData.skill.map((skill, index) => (
+        {skillData.map((skill, index) => (
           <div className="mini-card-container" key={index}>
             <div className="miniCard-content">
               <h3 className="mini-card-header">{skill.skill}</h3>
@@ -36,7 +38,7 @@ function MiniCardSkill(skillData) {
         ))}
       </ul>
       <div className="language-container">
-        <div className="add-container">
+        <div className="add-container" onClick={addSkill}>
           <div className="plus-container">
             <img src={plusIcon} className="plus"></img>
           </div>

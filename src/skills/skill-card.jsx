@@ -51,18 +51,17 @@ function SkillCard({ isOpen, onClick }) {
       skill: true,
     }));
     setNewSkill(updateSkill.skill);
-    const IndexSkill = skillData.findIndex(
+    let IndexSkill = skillData.findIndex(
       (obj) => obj.index === updateSkill.index
     );
+
     if (IndexSkill !== -1) {
-      const updatedSkills = skillData.map((skill) => {
-        if (skill.index === IndexSkill) {
-          return {
-            ...skill,
-            skill: updateSkill.skill,
-          };
-        }
-      });
+      const updatedSkills = skillData.map((skill) =>
+        skill.index === IndexSkill
+          ? { ...skill, skill: updateSkill.skill }
+          : skill
+      );
+
       setSkillData(updatedSkills);
     } else {
       setSkillData((prevSkills) => [
@@ -85,18 +84,16 @@ function SkillCard({ isOpen, onClick }) {
       level: true,
     }));
     setLevel(updateSkill.level);
-    const IndexSkill = skillData.findIndex(
+    let IndexSkill = skillData.findIndex(
       (obj) => obj.index === updateSkill.index
     );
+
     if (IndexSkill !== -1) {
-      const updatedSkills = skillData.map((skill) => {
-        if (skill.index === IndexSkill) {
-          return {
-            ...skill,
-            level: updateSkill.level,
-          };
-        }
-      });
+      const updatedSkills = skillData.map((skill) =>
+        skill.index === IndexSkill
+          ? { ...skill, level: updateSkill.level }
+          : skill
+      );
       setSkillData(updatedSkills);
     } else {
       setSkillData((prevSkills) => [
@@ -124,14 +121,11 @@ function SkillCard({ isOpen, onClick }) {
       (obj) => obj.index === updateSkill.index
     );
     if (IndexSkill !== -1) {
-      const updatedSkills = skillData.map((skill) => {
-        if (skill.index === IndexSkill) {
-          return {
-            ...skill,
-            type: updateSkill.type,
-          };
-        }
-      });
+      const updatedSkills = skillData.map((skill) =>
+        skill.index === IndexSkill
+          ? { ...skill, type: updateSkill.type }
+          : skill
+      );
       setSkillData(updatedSkills);
     } else {
       setSkillData((prevSkills) => [
@@ -156,6 +150,17 @@ function SkillCard({ isOpen, onClick }) {
       setLevel(0);
       setType('Hard');
       switchDiv();
+      setCurrentSkill(() => ({
+        skill: '',
+        level: 0,
+        type: 'Hard',
+        index: skillData[skillData.length - 1]?.index + 1 || 0,
+      }));
+      setValidation(() => ({
+        skill: false,
+        level: false,
+        skillMastery: false,
+      }));
     }
   };
 
@@ -293,7 +298,7 @@ function SkillCard({ isOpen, onClick }) {
             </div>
           </>
         ) : (
-          <MiniCardSkill skill={skillData} />
+          <MiniCardSkill skillData={skillData} setCurrentDiv={setCurrentDiv} />
         )}
       </div>
     </div>
