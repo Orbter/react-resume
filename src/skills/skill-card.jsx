@@ -141,7 +141,7 @@ function SkillCard({ isOpen, onClick }) {
   };
 
   const handleAddSkill = () => {
-    if (newSkill.trim() !== '') {
+    if (newSkill.trim() !== '' && currentSkill.level !== 0) {
       setSkillDataCopy((prevSkills) => [
         ...prevSkills,
         { skill: newSkill, level, type },
@@ -221,7 +221,7 @@ function SkillCard({ isOpen, onClick }) {
                   name={'skill'}
                   id={'skill'}
                   placeholder={'fastest runner'}
-                  value={newSkill}
+                  value={currentSkill.skill}
                   onChange={handelSkillChange}
                   className={
                     'input-personal' +
@@ -245,7 +245,8 @@ function SkillCard({ isOpen, onClick }) {
                       {[1, 2, 3, 4, 5].map((index) => (
                         <div
                           className={
-                            'circle' + (index <= level ? ' active' : '')
+                            'circle' +
+                            (index <= currentSkill.level ? ' active' : '')
                           }
                           id={'circle' + index}
                           key={index}
@@ -270,7 +271,7 @@ function SkillCard({ isOpen, onClick }) {
                   </label>
                   <select
                     name="skillMastery"
-                    value={type}
+                    value={currentSkill.type}
                     onChange={handleTypeChange}
                     className={
                       'input-personal-mastery ' +
@@ -298,7 +299,11 @@ function SkillCard({ isOpen, onClick }) {
             </div>
           </>
         ) : (
-          <MiniCardSkill skillData={skillData} setCurrentDiv={setCurrentDiv} />
+          <MiniCardSkill
+            skillData={skillData}
+            setCurrentDiv={setCurrentDiv}
+            setCurrentSkill={setCurrentSkill}
+          />
         )}
       </div>
     </div>

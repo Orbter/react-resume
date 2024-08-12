@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from 'react';
-import editIcon from './assets/editIcon.svg';
+import editIconImg from './assets/editIcon.svg';
 import plusIcon from './assets/plus.svg';
 import './style/miniCard.css';
 
@@ -8,17 +8,27 @@ const levelText = (level, options) => {
   return mastery.label;
 };
 
-function MiniCardSkill({ skillData, setCurrentDiv }) {
+function MiniCardSkill({ skillData, setCurrentDiv, setCurrentSkill }) {
   console.log(skillData); // Debugging line
   const addSkill = () => {
     setCurrentDiv('largeDiv');
   };
+  const editIcon = (currentSkill) => {
+    const editSkill = {
+      skill: currentSkill.skill,
+      level: currentSkill.level,
+      type: currentSkill.type,
+      index: currentSkill.index,
+    };
+    setCurrentSkill(editSkill);
+    addSkill();
+  };
   const optionMastery = [
-    { value: 0, label: 'Novice' },
-    { value: 1, label: 'Beginner' },
-    { value: 2, label: 'Intermediate' },
-    { value: 3, label: 'Advanced' },
-    { value: 4, label: 'Master' },
+    { value: 1, label: 'Novice' },
+    { value: 2, label: 'Beginner' },
+    { value: 3, label: 'Intermediate' },
+    { value: 4, label: 'Advanced' },
+    { value: 5, label: 'Master' },
   ];
   return (
     <div className="mini-card">
@@ -31,8 +41,8 @@ function MiniCardSkill({ skillData, setCurrentDiv }) {
                 {levelText(skill.level, optionMastery)}
               </span>
             </div>
-            <div className="edit-container">
-              <img src={editIcon} alt="edit" className="edit-icon"></img>
+            <div className="edit-container" onClick={() => editIcon(skill)}>
+              <img src={editIconImg} alt="edit" className="edit-icon"></img>
             </div>
           </div>
         ))}
