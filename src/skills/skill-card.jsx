@@ -146,9 +146,6 @@ function SkillCard({ isOpen, onClick }) {
         ...prevSkills,
         { skill: newSkill, level, type },
       ]);
-      setNewSkill('');
-      setLevel(0);
-      setType('Hard');
       switchDiv();
       setCurrentSkill(() => ({
         skill: '',
@@ -183,6 +180,35 @@ function SkillCard({ isOpen, onClick }) {
     setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
   };
 
+  const deleteItem = (deleteSkill) => {
+    const skillExist = skillData.map((skill) =>
+      skill.index === deleteSkill.index ? true : false
+    );
+    if (skillExist) {
+      setSkillData((prevSkill) =>
+        prevSkill.filter((skill) => skill.index !== deleteSkill.index)
+      );
+      switchDiv();
+      setCurrentSkill(() => ({
+        skill: '',
+        level: 0,
+        type: 'Hard',
+        index: skillData[skillData.length - 1]?.index + 1 || 0,
+      }));
+      setValidation(() => ({
+        skill: false,
+        level: false,
+        skillMastery: false,
+      }));
+    } else {
+      setCurrentSkill((prevSkill) => ({
+        ...prevSkill,
+        skill: '',
+        level: 0,
+        type: 'Hard',
+      }));
+    }
+  };
   return (
     <div className="card">
       <div
@@ -288,7 +314,10 @@ function SkillCard({ isOpen, onClick }) {
 
             <div className="done-delete-container">
               <div className="all-options">
-                <div className="delete-container">
+                <div
+                  className="delete-container"
+                  onClick={() => deleteItem(currentSkill)}
+                >
                   <img src={deleteThis} alt="delete" className="delete-img" />
                 </div>
                 <button className="done-button" onClick={handleAddSkill}>
