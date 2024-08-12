@@ -3,7 +3,6 @@ import down from '../assets/down.svg';
 import up from '../assets/up.svg';
 import deleteThis from '../assets/delete.svg';
 import ok from '../assets/ok.svg';
-import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 import { ResumeContext } from '../formProvider';
@@ -18,11 +17,12 @@ function SkillCard({ isOpen, onClick }) {
     skill: '',
     level: 0,
     type: 'Hard',
-    index: skillData[skillData.length - 1]?.index + 1 || 0,
+    index: uuidv4(), // Use uuid to generate a unique identifier for each skill
   });
+
   const [newSkill, setNewSkill] = useState('');
   const [level, setLevel] = useState(0);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Hard');
   const [currentDiv, setCurrentDiv] = useState('largeDiv');
 
   const [validation, setValidation] = useState({
@@ -30,6 +30,7 @@ function SkillCard({ isOpen, onClick }) {
     level: false,
     skillMastery: false,
   });
+
   const [optionText, setOptionText] = useState('make a choice');
 
   const optionMastery = [
@@ -39,11 +40,13 @@ function SkillCard({ isOpen, onClick }) {
     { value: 4, label: 'Advanced' },
     { value: 5, label: 'Master' },
   ];
+
   const hardOrSoft = [
     { value: '01', label: 'Hard' },
     { value: '02', label: 'Soft' },
   ];
-  const handelSkillChange = (event) => {
+
+  const handleSkillChange = (event) => {
     const updateSkill = { ...currentSkill, skill: event.target.value };
     setCurrentSkill(updateSkill);
     setValidation((prevState) => ({
@@ -51,17 +54,17 @@ function SkillCard({ isOpen, onClick }) {
       skill: true,
     }));
     setNewSkill(updateSkill.skill);
-    let IndexSkill = skillData.findIndex(
+
+    const skillExists = skillData.find(
       (obj) => obj.index === updateSkill.index
     );
 
-    if (IndexSkill !== -1) {
+    if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
-        skill.index === IndexSkill
+        skill.index === updateSkill.index
           ? { ...skill, skill: updateSkill.skill }
           : skill
       );
-
       setSkillData(updatedSkills);
     } else {
       setSkillData((prevSkills) => [
@@ -70,12 +73,13 @@ function SkillCard({ isOpen, onClick }) {
           skill: updateSkill.skill,
           level: updateSkill.level,
           type: updateSkill.type,
-          index: skillData[skillData.length - 1]?.index + 1 || 0,
+          index: updateSkill.index, // Use the same index generated initially
         },
       ]);
     }
   };
-  const handelLevelChange = (value) => {
+
+  const handleLevelChange = (value) => {
     const updateSkill = { ...currentSkill, level: value };
     changeTextChoice(value);
     setCurrentSkill(updateSkill);
@@ -84,13 +88,14 @@ function SkillCard({ isOpen, onClick }) {
       level: true,
     }));
     setLevel(updateSkill.level);
-    let IndexSkill = skillData.findIndex(
+
+    const skillExists = skillData.find(
       (obj) => obj.index === updateSkill.index
     );
 
-    if (IndexSkill !== -1) {
+    if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
-        skill.index === IndexSkill
+        skill.index === updateSkill.index
           ? { ...skill, level: updateSkill.level }
           : skill
       );
@@ -102,7 +107,7 @@ function SkillCard({ isOpen, onClick }) {
           skill: updateSkill.skill,
           level: updateSkill.level,
           type: updateSkill.type,
-          index: skillData[skillData.length - 1]?.index + 1 || 0,
+          index: updateSkill.index,
         },
       ]);
     }
@@ -117,12 +122,14 @@ function SkillCard({ isOpen, onClick }) {
       type: true,
     }));
     setType(updateSkill.type);
-    const IndexSkill = skillData.findIndex(
+
+    const skillExists = skillData.find(
       (obj) => obj.index === updateSkill.index
     );
-    if (IndexSkill !== -1) {
+
+    if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
-        skill.index === IndexSkill
+        skill.index === updateSkill.index
           ? { ...skill, type: updateSkill.type }
           : skill
       );
@@ -134,7 +141,7 @@ function SkillCard({ isOpen, onClick }) {
           skill: updateSkill.skill,
           level: updateSkill.level,
           type: updateSkill.type,
-          index: skillData[skillData.length - 1]?.index + 1 || 0,
+          index: updateSkill.index,
         },
       ]);
     }
@@ -144,20 +151,20 @@ function SkillCard({ isOpen, onClick }) {
     if (newSkill.trim() !== '' && currentSkill.level !== 0) {
       setSkillDataCopy((prevSkills) => [
         ...prevSkills,
-        { skill: newSkill, level, type },
+        { skill: newSkill, level, type, index: uuidv4() }, // New skill gets a unique ID
       ]);
       switchDiv();
-      setCurrentSkill(() => ({
+      setCurrentSkill({
         skill: '',
         level: 0,
         type: 'Hard',
-        index: skillData[skillData.length - 1]?.index + 1 || 0,
-      }));
-      setValidation(() => ({
+        index: uuidv4(), // Reset to a new unique index
+      });
+      setValidation({
         skill: false,
         level: false,
         skillMastery: false,
-      }));
+      });
     }
   };
 
@@ -165,6 +172,7 @@ function SkillCard({ isOpen, onClick }) {
     const level = optionMastery.find((option) => option.value === number);
     setOptionText(level.label);
   };
+
   const contentRef = useRef(null);
   const [maxHeight, setMaxHeight] = useState('0px');
 
@@ -181,34 +189,29 @@ function SkillCard({ isOpen, onClick }) {
   };
 
   const deleteItem = (deleteSkill) => {
-    const skillExist = skillData.map((skill) =>
-      skill.index === deleteSkill.index ? true : false
+    const skillExists = skillData.some(
+      (skill) => skill.index === deleteSkill.index
     );
-    if (skillExist) {
-      setSkillData((prevSkill) =>
-        prevSkill.filter((skill) => skill.index !== deleteSkill.index)
+
+    if (skillExists) {
+      setSkillData((prevSkills) =>
+        prevSkills.filter((skill) => skill.index !== deleteSkill.index)
       );
       switchDiv();
-      setCurrentSkill(() => ({
+      setCurrentSkill({
         skill: '',
         level: 0,
         type: 'Hard',
-        index: skillData[skillData.length - 1]?.index + 1 || 0,
-      }));
-      setValidation(() => ({
+        index: uuidv4(), // Reset to a new unique index after deletion
+      });
+      setValidation({
         skill: false,
         level: false,
         skillMastery: false,
-      }));
-    } else {
-      setCurrentSkill((prevSkill) => ({
-        ...prevSkill,
-        skill: '',
-        level: 0,
-        type: 'Hard',
-      }));
+      });
     }
   };
+
   return (
     <div className="card">
       <div
@@ -243,12 +246,12 @@ function SkillCard({ isOpen, onClick }) {
                   Skill
                 </label>
                 <input
-                  type={'text'}
-                  name={'skill'}
-                  id={'skill'}
-                  placeholder={'fastest runner'}
+                  type="text"
+                  name="skill"
+                  id="skill"
+                  placeholder="fastest runner"
                   value={currentSkill.skill}
-                  onChange={handelSkillChange}
+                  onChange={handleSkillChange}
                   className={
                     'input-personal' +
                     (validation['skill'] ? ' valid-input' : '')
@@ -276,7 +279,7 @@ function SkillCard({ isOpen, onClick }) {
                           }
                           id={'circle' + index}
                           key={index}
-                          onClick={() => handelLevelChange(index)}
+                          onClick={() => handleLevelChange(index)}
                         ></div>
                       ))}
                     </div>
@@ -313,18 +316,16 @@ function SkillCard({ isOpen, onClick }) {
             </form>
 
             <div className="done-delete-container">
-              <div className="all-options">
-                <div
-                  className="delete-container"
-                  onClick={() => deleteItem(currentSkill)}
-                >
-                  <img src={deleteThis} alt="delete" className="delete-img" />
-                </div>
-                <button className="done-button" onClick={handleAddSkill}>
-                  <img src={ok} alt="vi" className="check" />
-                  Done
-                </button>
+              <div
+                className="delete-container"
+                onClick={() => deleteItem(currentSkill)}
+              >
+                <img src={deleteThis} alt="delete" className="delete-img" />
               </div>
+              <button className="done-button" onClick={handleAddSkill}>
+                <img src={ok} alt="vi" className="check" />
+                Done
+              </button>
             </div>
           </>
         ) : (
@@ -338,4 +339,5 @@ function SkillCard({ isOpen, onClick }) {
     </div>
   );
 }
+
 export default SkillCard;
