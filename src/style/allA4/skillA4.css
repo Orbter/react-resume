@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+:root {
+  --primary-blue-color: #29c2f1; /* Define the primary color variable */
+}
+
 .skill-list {
   position: absolute;
-  top: 19vw;
+  top: 15.5vw;
   color: white;
-  margin-left: 19%;
+  margin-left: 10%;
 }
 .a4-nav-bar {
   position: relative;
@@ -17,13 +21,55 @@ ul {
 .hard-skills-headline {
   color: #a5a5a5;
   font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
+
 .soft-skills-headLine {
   color: #a5a5a5;
   font-family: 'Inter', sans-serif;
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 .circle-skill {
   background-color: #d1d1d1;
-  width: 20%;
-  height: 1vw;
+  width: 1.2vw;
+  height: 1.2vw;
+  max-width: 23px;
+  max-height: 23px;
+  border-radius: 100%;
+}
+.circle-a4-container {
+  display: flex;
+  gap: 3px;
+}
+.skill-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 14vw;
+  gap: 6px;
+}
+.skill-name {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: clamp(
+    8px,
+    1vw,
+    18px
+  ); /* Font size will be between 12px and 24px, scaling with viewport */
+  word-wrap: break-word;
+}
+.circle-skill.active {
+  background-color: var(--primary-blue-color);
+}
+.ul-a4 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media screen and (min-width: 2001px) {
+  .skill-list {
+    top: 320px;
+  }
 }

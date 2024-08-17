@@ -45,7 +45,7 @@
     background-color: var(--primary-blue-color);
     height: 12vw;
     position: absolute;
-    top: 6%; /* Ensures it stays at the top */
+    top: 5%; /* Ensures it stays at the top */
     left: 10%;
     max-width: 700px;
     max-height: 240px;
@@ -54,7 +54,7 @@
     z-index: 3;
     width: 40vw;
     position: absolute;
-    top: 5%;
+    top: 3.5%;
     left: 8%;
     background-color: white;
     height: 14vw;
