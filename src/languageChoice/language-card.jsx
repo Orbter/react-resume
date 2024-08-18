@@ -11,11 +11,11 @@ import { ResumeContext } from '../formProvider';
 
 function LanguageCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
-  const { skillData, setSkillData } = objSeen;
+  const { languageData, setLanguageData } = objSeen;
 
   const [currentLanguage, setCurrentLanguage] = useState({
     language: '',
-    index: uuidv4(), // Use uuid to generate a unique identifier for each skill
+    index: uuidv4(),
   });
   const [newLanguage, setNewLanguage] = useState('');
 
@@ -38,33 +38,46 @@ function LanguageCard({ isOpen, onClick }) {
   }, [isOpen]);
 
   const handleLanguageChange = (event) => {
-    const updateLanguage = { ...currentLanguage, language: value };
+    const updateLanguage = { ...currentLanguage, language: event.target.value };
     setCurrentLanguage(updateLanguage);
-
-    const { name, value } = event.target;
     setValidation((prevState) => ({
       ...prevState,
-      [name]: isValueValid(value),
+      language: true,
     }));
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const isLanguageExist = languageData.find(
+      (obj) => obj.index === updateLanguage.index
+    );
+    if (isLanguageExist) {
+      const updateLanguages = languageData.map((language) =>
+        language.index === updateLanguage.index
+          ? { ...language, language: updateLanguage.language }
+          : language
+      );
+      setLanguageData(updateLanguages);
+    } else {
+      setLanguageData((prevLanguage) => [
+        ...prevLanguage,
+        {
+          language: updateLanguage.language,
+          index: updateLanguage.index,
+        },
+      ]);
+    }
+    console.log(languageData);
   };
 
   return (
-    <div className='card'>
+    <div className="card">
       <div
         className={isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className='card-header'>Languages</h1>
-        <div className='action'>
+        <h1 className="card-header">Languages</h1>
+        <div className="action">
           <img
             src={isOpen ? down : up}
-            alt='open/close'
-            className='action-img'
+            alt="open/close"
+            className="action-img"
           />
         </div>
       </div>
@@ -73,37 +86,39 @@ function LanguageCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className='form-personal-work'>
-          <div className='form-group'>
+        <form className="form-personal-work">
+          <div className="form-group">
             <label
-              htmlFor='skill'
+              htmlFor="language"
               className={
-                'label-personal' + (validation['skill'] ? ' valid-label' : '')
+                'label-personal' +
+                (validation['language'] ? ' valid-label' : '')
               }
             >
               Language
             </label>
             <input
-              type='text'
-              name='skill'
-              id='skill'
-              placeholder='english'
-              value={formData['skill']}
+              type="text"
+              name="language"
+              id="language"
+              placeholder="english"
+              value={currentLanguage.language}
               onChange={handleLanguageChange}
               className={
-                'input-personal' + (validation['skill'] ? ' valid-input' : '')
+                'input-personal' +
+                (validation['language'] ? ' valid-input' : '')
               }
             />
           </div>
         </form>
 
-        <div className='done-delete-container'>
-          <div className='all-options'>
-            <div className='delete-container'>
-              <img src={deleteThis} alt='delete' className='delete-img' />
+        <div className="done-delete-container">
+          <div className="all-options">
+            <div className="delete-container">
+              <img src={deleteThis} alt="delete" className="delete-img" />
             </div>
-            <button className='done-button'>
-              <img src={ok} alt='vi' className='check' />
+            <button className="done-button">
+              <img src={ok} alt="vi" className="check" />
               Done
             </button>
           </div>

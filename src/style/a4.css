@@ -30,6 +30,13 @@
     position: relative;
     max-height: 1131px;
     max-width: 800px;
+    align-items: end;
+  }
+  .a4-main-content {
+    display: flex;
+    width: 29vw;
+    height: 74.5%;
+    flex-direction: column;
   }
   .a4-nav-bar {
     height: calc(45vw * 1.414);
