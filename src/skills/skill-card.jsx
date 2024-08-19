@@ -6,7 +6,7 @@ import ok from '../assets/ok.svg';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 import { ResumeContext } from '../formProvider';
-import MiniCardSkill from '../miniCards';
+import { MiniCardSkill } from '../miniCards';
 
 function SkillCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
@@ -211,7 +211,7 @@ function SkillCard({ isOpen, onClick }) {
       });
     }
   };
-
+  // functionality
   return (
     <div className="card">
       <div

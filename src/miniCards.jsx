@@ -9,7 +9,6 @@ const levelText = (level, options) => {
 };
 
 function MiniCardSkill({ skillData, setCurrentDiv, setCurrentSkill }) {
-  console.log(skillData); // Debugging line
   const addSkill = () => {
     setCurrentDiv('largeDiv');
   };
@@ -58,5 +57,41 @@ function MiniCardSkill({ skillData, setCurrentDiv, setCurrentSkill }) {
     </div>
   );
 }
-
-export default MiniCardSkill;
+function MiniCardLanguage({ languageData, setCurrentDiv, setCurrentLanguage }) {
+  const addLanguage = () => {
+    setCurrentDiv('largeDiv');
+  };
+  const editIcon = (currentLanguage) => {
+    const editSkill = {
+      language: currentLanguage.language,
+      index: currentLanguage.index,
+    };
+    setCurrentLanguage(editSkill);
+    addSkill();
+  };
+  return (
+    <div className="mini-card">
+      <ul>
+        {languageData.map((language, index) => (
+          <div className="mini-card-container" key={index}>
+            <div className="miniCard-content">
+              <h3 className="mini-card-header">{language.language}</h3>
+            </div>
+            <div className="edit-container" onClick={() => editIcon(language)}>
+              <img src={editIconImg} alt="edit" className="edit-icon"></img>
+            </div>
+          </div>
+        ))}
+      </ul>
+      <div className="language-container">
+        <div className="add-container" onClick={addLanguage}>
+          <div className="plus-container">
+            <img src={plusIcon} className="plus"></img>
+          </div>
+          <p className="add-language">Add Language</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+export { MiniCardSkill, MiniCardLanguage };

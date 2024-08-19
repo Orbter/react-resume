@@ -8,6 +8,7 @@ import { isValueValid } from '../work-experience/work-check';
 import { v4 as uuidv4 } from 'uuid';
 import '../style/skill.css';
 import { ResumeContext } from '../formProvider';
+import { MiniCardLanguage } from '../miniCards';
 
 function LanguageCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
@@ -25,6 +26,7 @@ function LanguageCard({ isOpen, onClick }) {
   const [validation, setValidation] = useState({
     language: false,
   });
+  const [currentDiv, setCurrentDiv] = useState('largeDiv');
 
   const contentRef = useRef(null);
   const [maxHeight, setMaxHeight] = useState('0px');
@@ -36,7 +38,9 @@ function LanguageCard({ isOpen, onClick }) {
       setMaxHeight('0px');
     }
   }, [isOpen]);
-
+  const switchDiv = () => {
+    setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
+  };
   const handleLanguageChange = (event) => {
     const updateLanguage = { ...currentLanguage, language: event.target.value };
     setCurrentLanguage(updateLanguage);
@@ -86,43 +90,53 @@ function LanguageCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className="form-personal-work">
-          <div className="form-group">
-            <label
-              htmlFor="language"
-              className={
-                'label-personal' +
-                (validation['language'] ? ' valid-label' : '')
-              }
-            >
-              Language
-            </label>
-            <input
-              type="text"
-              name="language"
-              id="language"
-              placeholder="english"
-              value={currentLanguage.language}
-              onChange={handleLanguageChange}
-              className={
-                'input-personal' +
-                (validation['language'] ? ' valid-input' : '')
-              }
-            />
-          </div>
-        </form>
+        {currentDiv === 'largeDiv' ? (
+          <>
+            <form className="form-personal-work">
+              <div className="form-group">
+                <label
+                  htmlFor="language"
+                  className={
+                    'label-personal' +
+                    (validation['language'] ? ' valid-label' : '')
+                  }
+                >
+                  Language
+                </label>
+                <input
+                  type="text"
+                  name="language"
+                  id="language"
+                  placeholder="english"
+                  value={currentLanguage.language}
+                  onChange={handleLanguageChange}
+                  className={
+                    'input-personal' +
+                    (validation['language'] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+            </form>
 
-        <div className="done-delete-container">
-          <div className="all-options">
-            <div className="delete-container">
-              <img src={deleteThis} alt="delete" className="delete-img" />
+            <div className="done-delete-container">
+              <div className="all-options">
+                <div className="delete-container">
+                  <img src={deleteThis} alt="delete" className="delete-img" />
+                </div>
+                <button className="done-button">
+                  <img src={ok} alt="vi" className="check" />
+                  Done
+                </button>
+              </div>
             </div>
-            <button className="done-button">
-              <img src={ok} alt="vi" className="check" />
-              Done
-            </button>
-          </div>
-        </div>
+          </>
+        ) : (
+          <MiniCardLanguage
+            languageData={languageData}
+            setCurrentDiv={setCurrentDiv}
+            setCurrentLanguage={setCurrentLanguage}
+          />
+        )}
       </div>
     </div>
   );

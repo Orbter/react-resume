@@ -12,10 +12,12 @@ function LanguageA4({ languageData }) {
             <h2>Language</h2>
           </div>
           <div className="under-line"></div>
-          <ul>
+          <ul className="ul-language">
             {Array.isArray(languageData) &&
               languageData.map((language, index) => (
-                <li key={index}>{capitalizeFirstLetter(language)}</li>
+                <li key={index} className="language">
+                  {capitalizeFirstLetter(language)}
+                </li>
               ))}
           </ul>
         </div>
