@@ -54,9 +54,9 @@ ul {
   font-family: 'Rubik', sans-serif;
   font-weight: 500;
   font-size: clamp(
-    8px,
+    15px,
     1vw,
-    18px
+    24px
   ); /* Font size will be between 12px and 24px, scaling with viewport */
   word-wrap: break-word;
 }

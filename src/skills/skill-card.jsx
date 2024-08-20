@@ -211,7 +211,6 @@ function SkillCard({ isOpen, onClick }) {
       });
     }
   };
-  // functionality
   return (
     <div className="card">
       <div

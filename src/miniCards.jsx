@@ -61,6 +61,9 @@ function MiniCardLanguage({ languageData, setCurrentDiv, setCurrentLanguage }) {
   const addLanguage = () => {
     setCurrentDiv('largeDiv');
   };
+  const addSkill = () => {
+    setCurrentDiv('largeDiv');
+  };
   const editIcon = (currentLanguage) => {
     const editSkill = {
       language: currentLanguage.language,
@@ -84,7 +87,7 @@ function MiniCardLanguage({ languageData, setCurrentDiv, setCurrentLanguage }) {
         ))}
       </ul>
       <div className="language-container">
-        <div className="add-container" onClick={addLanguage}>
+        <div className="add-container-language" onClick={addLanguage}>
           <div className="plus-container">
             <img src={plusIcon} className="plus"></img>
           </div>

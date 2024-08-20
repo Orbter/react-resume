@@ -70,6 +70,39 @@ function LanguageCard({ isOpen, onClick }) {
     console.log(languageData);
   };
 
+  const handleAddLanguage = () => {
+    if (currentLanguage.language.trim !== '') {
+      switchDiv();
+      setCurrentLanguage({
+        language: '',
+        index: uuidv4(),
+      });
+      setValidation({
+        language: false,
+      });
+    }
+  };
+
+  const deleteItem = (deleteLanguage) => {
+    const languageExists = languageData.some(
+      (language) => language.index === deleteLanguage.index
+    );
+
+    if (languageExists) {
+      setLanguageData((prevSkills) =>
+        prevSkills.filter((language) => language.index !== deleteLanguage.index)
+      );
+      switchDiv();
+      setCurrentLanguage({
+        language: '',
+        index: uuidv4(), // Reset to a new unique index after deletion
+      });
+      setValidation({
+        language: false,
+      });
+    }
+  };
+
   return (
     <div className="card">
       <div
@@ -120,10 +153,13 @@ function LanguageCard({ isOpen, onClick }) {
 
             <div className="done-delete-container">
               <div className="all-options">
-                <div className="delete-container">
+                <div
+                  className="delete-container"
+                  onClick={() => deleteItem(currentLanguage)}
+                >
                   <img src={deleteThis} alt="delete" className="delete-img" />
                 </div>
-                <button className="done-button">
+                <button className="done-button" onClick={handleAddLanguage}>
                   <img src={ok} alt="vi" className="check" />
                   Done
                 </button>

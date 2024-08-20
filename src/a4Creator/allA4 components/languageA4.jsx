@@ -9,7 +9,7 @@ function LanguageA4({ languageData }) {
       {languageData.length !== 0 && (
         <div className="language-list">
           <div className="headline-container">
-            <h2>Language</h2>
+            <h2 className="language-header">Language</h2>
           </div>
           <div className="under-line"></div>
           <ul className="ul-language">
