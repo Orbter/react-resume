@@ -200,6 +200,42 @@ function EducationCard({ isOpen, onClick }) {
     ],
   ];
 
+  const deleteItem = (deleteEducation) => {
+    const isEducationExist = educationData.some(
+      (obj) => obj.index === currentEducation.index
+    );
+
+    if (isEducationExist) {
+      setEducationData((prevSkills) =>
+        prevSkills.filter(
+          (education) => education.index !== deleteEducation.index
+        )
+      );
+      switchDiv();
+      setCurrentEducation({
+        education: '',
+        school: '',
+        city: '',
+        startDateMonth: '',
+        startDateYear: '',
+        endDateMonth: '',
+        endDateYear: '',
+        description: '',
+        index: uuidv4(),
+      });
+      setValidation({
+        education: false,
+        school: false,
+        city: false,
+        startDateMonth: false,
+        startDateYear: false,
+        endDateMonth: false,
+        endDateYear: false,
+        description: false,
+      });
+    }
+  };
+
   return (
     <div className="card">
       <div
@@ -316,10 +352,13 @@ function EducationCard({ isOpen, onClick }) {
             </form>
             <div className="done-delete-container">
               <div className="all-options">
-                <div className="delete-container">
+                <div
+                  className="delete-container"
+                  onClick={() => deleteItem(currentEducation)}
+                >
                   <img src={deleteThis} alt="delete" className="delete-img" />
                 </div>
-                <button className="done-button">
+                <button className="done-button" onClick={handleAddEduction}>
                   <img src={ok} alt="vi" className="check" />
                   Done
                 </button>
