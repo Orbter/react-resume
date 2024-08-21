@@ -97,4 +97,55 @@ function MiniCardLanguage({ languageData, setCurrentDiv, setCurrentLanguage }) {
     </div>
   );
 }
-export { MiniCardSkill, MiniCardLanguage };
+
+function MiniCardEducation({
+  educationData,
+  setCurrentDiv,
+  setCurrentEducation,
+}) {
+  const addEducation = () => {
+    setCurrentDiv('largeDiv');
+  };
+  const editIcon = (currentEducation) => {
+    const editEducation = {
+      education: currentEducation.education,
+      school: currentEducation.school,
+      city: currentEducation.city,
+      startDateMonth: currentEducation.startDateMonth,
+      startDateYear: currentEducation.startDateYear,
+      endDateMonth: currentEducation.endDateMonth,
+      endDateYear: currentEducation.endDateYear,
+      description: currentEducation.description,
+      index: currentEducation.index,
+    };
+    setCurrentEducation(editEducation);
+    addEducation();
+  };
+
+  return (
+    <div className="mini-card">
+      <ul>
+        {educationData.map((education, index) => (
+          <div className="mini-card-container" key={index}>
+            <div className="miniCard-content">
+              <h3 className="mini-card-header">{education.education}</h3>
+              <span className="mini-card-level">{education.school}</span>
+            </div>
+            <div className="edit-container" onClick={() => editIcon(education)}>
+              <img src={editIconImg} alt="edit" className="edit-icon"></img>
+            </div>
+          </div>
+        ))}
+      </ul>
+      <div className="language-container">
+        <div className="add-container-language" onClick={addEducation}>
+          <div className="plus-container">
+            <img src={plusIcon} className="plus"></img>
+          </div>
+          <p className="add-language">Add Education</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+export { MiniCardSkill, MiniCardLanguage, MiniCardEducation };

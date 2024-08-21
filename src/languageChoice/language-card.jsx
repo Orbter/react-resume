@@ -18,11 +18,7 @@ function LanguageCard({ isOpen, onClick }) {
     language: '',
     index: uuidv4(),
   });
-  const [newLanguage, setNewLanguage] = useState('');
 
-  const [formData, setFormData] = useState({
-    language: '',
-  });
   const [validation, setValidation] = useState({
     language: false,
   });
