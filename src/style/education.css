@@ -1,0 +1,36 @@
+.quill {
+  background-color: var(--grey);
+  border-radius: 4px;
+  border: none;
+  font-size: 1.25rem;
+  font-family: 'Rubik', sans-serif;
+  width: clamp(72px, 89.5vw, 740px);
+  max-width: 740px;
+  min-height: clamp(90px, 10vh, 180px); /* Ensure it has a minimum height */
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.quill .ql-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.quill .ql-editor {
+  background-color: var(--grey);
+  font-size: 1.25rem;
+  font-family: 'Rubik', sans-serif;
+  min-height: 100%; /* Ensure it occupies the full height */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.quill .ql-toolbar {
+  background-color: #fff;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  border: none;
+}

@@ -35,7 +35,7 @@
   .a4-main-content {
     display: flex;
     width: 29vw;
-    height: 74.5%;
+    height: 70%;
     flex-direction: column;
   }
   .a4-nav-bar {

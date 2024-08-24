@@ -7,15 +7,13 @@ function LanguageA4({ languageData }) {
   return (
     <>
       {languageData.length !== 0 && (
-        <div className="language-list">
-          <div className="headline-container">
-            <h2 className="language-header">Language</h2>
-          </div>
-          <div className="under-line"></div>
-          <ul className="ul-language">
+        <div className='language-list'>
+          <div className='headline-container'>Language</div>
+          <div className='under-line'></div>
+          <ul className='ul-language'>
             {Array.isArray(languageData) &&
               languageData.map((language, index) => (
-                <li key={index} className="language">
+                <li key={index} className='language'>
                   {capitalizeFirstLetter(language)}
                 </li>
               ))}

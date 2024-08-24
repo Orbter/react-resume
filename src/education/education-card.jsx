@@ -8,6 +8,7 @@ import '../style/education.css';
 import { MiniCardEducation } from '../miniCards';
 import { ResumeContext } from '../formProvider';
 import { v4 as uuidv4 } from 'uuid';
+import DescriptionEditor from '../description';
 
 function EducationCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
@@ -63,12 +64,12 @@ function EducationCard({ isOpen, onClick }) {
       [name]: value,
     }));
     const isEducationExist = educationData.some(
-      (obj) => obj.index === currentEducation.index
+      (obj) => obj.index === currentEducation.index,
     );
 
     if (isEducationExist) {
       const updateEducations = educationData.map((education) =>
-        education.index === index ? { ...education, [name]: value } : education
+        education.index === index ? { ...education, [name]: value } : education,
       );
       setEducationData(updateEducations);
     } else {
@@ -202,14 +203,14 @@ function EducationCard({ isOpen, onClick }) {
 
   const deleteItem = (deleteEducation) => {
     const isEducationExist = educationData.some(
-      (obj) => obj.index === currentEducation.index
+      (obj) => obj.index === currentEducation.index,
     );
 
     if (isEducationExist) {
       setEducationData((prevSkills) =>
         prevSkills.filter(
-          (education) => education.index !== deleteEducation.index
-        )
+          (education) => education.index !== deleteEducation.index,
+        ),
       );
       switchDiv();
       setCurrentEducation({
@@ -237,17 +238,17 @@ function EducationCard({ isOpen, onClick }) {
   };
 
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={+isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Education</h1>
-        <div className="action">
+        <h1 className='card-header'>Education</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -258,9 +259,9 @@ function EducationCard({ isOpen, onClick }) {
       >
         {currentDiv === 'largeDiv' ? (
           <>
-            <form className="form-personal-work">
+            <form className='form-personal-work'>
               {formFields.map((field, index) => (
-                <div className="form-group" key={index}>
+                <div className='form-group' key={index}>
                   <label
                     htmlFor={field.name}
                     className={
@@ -285,11 +286,11 @@ function EducationCard({ isOpen, onClick }) {
                 </div>
               ))}
             </form>
-            <form className="form-personal-work-date">
+            <form className='form-personal-work-date'>
               {dateFields.map((fieldGroup, index) => (
-                <div className="date-group" key={index}>
+                <div className='date-group' key={index}>
                   {fieldGroup.map((dateFieldItem, subIndex) => (
-                    <div className="form-group-work" key={subIndex}>
+                    <div className='form-group-work' key={subIndex}>
                       {dateFieldItem.label && (
                         <label
                           htmlFor={dateFieldItem.name}
@@ -326,10 +327,10 @@ function EducationCard({ isOpen, onClick }) {
               ))}
             </form>
 
-            <form className="form-personal-work description-container">
-              <div className="form-group">
+            <form className='form-personal-work description-container'>
+              <div className='form-group'>
                 <label
-                  htmlFor="description"
+                  htmlFor='description'
                   className={
                     'label-personal' +
                     (validation['description'] ? ' valid-label' : '')
@@ -337,29 +338,27 @@ function EducationCard({ isOpen, onClick }) {
                 >
                   Description
                 </label>
-                <textarea
-                  name="description"
-                  id="description-work"
-                  placeholder=""
+                <DescriptionEditor
                   value={currentEducation['description']}
-                  onChange={handleEducationChange}
-                  className={
-                    'input-personal' +
-                    (validation['description'] ? ' valid-input' : '')
+                  onChange={(html) =>
+                    setCurrentEducation({
+                      ...currentEducation,
+                      description: html,
+                    })
                   }
                 />
               </div>
             </form>
-            <div className="done-delete-container">
-              <div className="all-options">
+            <div className='done-delete-container'>
+              <div className='all-options'>
                 <div
-                  className="delete-container"
+                  className='delete-container'
                   onClick={() => deleteItem(currentEducation)}
                 >
-                  <img src={deleteThis} alt="delete" className="delete-img" />
+                  <img src={deleteThis} alt='delete' className='delete-img' />
                 </div>
-                <button className="done-button" onClick={handleAddEduction}>
-                  <img src={ok} alt="vi" className="check" />
+                <button className='done-button' onClick={handleAddEduction}>
+                  <img src={ok} alt='vi' className='check' />
                   Done
                 </button>
               </div>
