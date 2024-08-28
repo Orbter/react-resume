@@ -12,7 +12,7 @@ function A4() {
   const { skillData, setSkillData } = objSeen;
   const { languageData, setLanguageData } = objSeen;
   const { educationData, setEducationData } = objSeen;
-
+  const { workData } = objSeen;
   return (
     <div className="a4-page">
       <div className="a4">

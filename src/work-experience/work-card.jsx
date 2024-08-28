@@ -1,14 +1,18 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import down from '../assets/down.svg';
 import up from '../assets/up.svg';
 import deleteThis from '../assets/delete.svg';
 import ok from '../assets/ok.svg';
 import { isValueValid, generateYearOptions } from './work-check';
 import { v4 as uuidv4 } from 'uuid';
+import { ResumeContext } from '../formProvider';
+
 import '../style/work.css';
 
 function WorkCard({ isOpen, onClick }) {
-  const [formData, setFormData] = useState({
+  const { objSeen } = useContext(ResumeContext);
+  const { workData, setWorkData } = objSeen;
+  const [currentWork, setCurrentWork] = useState({
     position: '',
     workingPlace: '',
     city: '',
@@ -28,8 +32,14 @@ function WorkCard({ isOpen, onClick }) {
     endDateYear: false,
     description: false,
   });
+  const [currentDiv, setCurrentDiv] = useState('largeDiv');
+
   const contentRef = useRef(null);
   const [maxHeight, setMaxHeight] = useState('0px');
+
+  const switchDiv = () => {
+    setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -39,19 +49,28 @@ function WorkCard({ isOpen, onClick }) {
     }
   }, [isOpen]);
 
-  const handleChange = (event) => {
+  const handleWorkChange = (event) => {
     const { name, value } = event.target;
-    let formattedValue = value;
+    const updatedWork = { ...currentWork, [name]: value };
 
     setValidation((prevState) => ({
       ...prevState,
       [name]: isValueValid(value),
     }));
 
-    setFormData({
-      ...formData,
-      [name]: formattedValue,
-    });
+    setCurrentWork(updatedWork);
+
+    const workIndex = workData.findIndex(
+      (work) => work.index === updatedWork.index
+    );
+
+    if (workIndex !== -1) {
+      const updatedWorkData = [...workData];
+      updatedWorkData[workIndex] = updatedWork;
+      setWorkData(updatedWorkData);
+    } else {
+      setWorkData([...workData, updatedWork]);
+    }
   };
 
   const formFields = [
@@ -171,8 +190,8 @@ function WorkCard({ isOpen, onClick }) {
                 name={field.name}
                 id={field.name}
                 placeholder={field.example}
-                value={formData[field.name]}
-                onChange={handleChange}
+                value={currentWork[field.name]}
+                onChange={handleWorkChange}
                 className={
                   'input-personal' +
                   (validation[field.name] ? ' valid-input' : '')
@@ -200,8 +219,8 @@ function WorkCard({ isOpen, onClick }) {
                   <select
                     name={dateFieldItem.name}
                     id={dateFieldItem.name + '-work'}
-                    value={formData[dateFieldItem.name]}
-                    onChange={handleChange}
+                    value={currentWork[dateFieldItem.name]}
+                    onChange={handleWorkChange}
                     className={
                       validation[dateFieldItem.name]
                         ? ' valid-input input-personal-work'
@@ -235,8 +254,8 @@ function WorkCard({ isOpen, onClick }) {
               name="description"
               id="description-work"
               placeholder=""
-              value={formData['description']}
-              onChange={handleChange}
+              value={currentWork['description']}
+              onChange={handleWorkChange}
               className={
                 'input-personal' +
                 (validation['description'] ? ' valid-input' : '')

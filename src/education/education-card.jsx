@@ -8,7 +8,6 @@ import '../style/education.css';
 import { MiniCardEducation } from '../miniCards';
 import { ResumeContext } from '../formProvider';
 import { v4 as uuidv4 } from 'uuid';
-import DescriptionEditor from '../description';
 
 function EducationCard({ isOpen, onClick }) {
   const { objSeen, objNotSeen } = useContext(ResumeContext);
@@ -62,18 +61,15 @@ function EducationCard({ isOpen, onClick }) {
 
     setCurrentEducation(updatedEducation);
 
-    // Find the index of the current education object in educationData
     const educationIndex = educationData.findIndex(
       (education) => education.index === updatedEducation.index
     );
 
     if (educationIndex !== -1) {
-      // Update the existing education object
       const updatedEducationData = [...educationData];
       updatedEducationData[educationIndex] = updatedEducation;
       setEducationData(updatedEducationData);
     } else {
-      // Add the new education object if it doesn't exist
       setEducationData([...educationData, updatedEducation]);
     }
   };
