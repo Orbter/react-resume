@@ -8,10 +8,10 @@
   margin: 5px;
   gap: 30px;
   font-family: 'Raleway', system-ui;
-  font-weight: 700;
+  font-weight: 600;
   list-style-position: outside;
   text-indent: -0.5em;
-  margin-left: 0.5em;
+  margin-left: 1em;
   font-size: clamp(12px, 1.4vw, 25px);
 }
 .language {
@@ -24,10 +24,10 @@
   margin-bottom: 20px;
   margin-left: 0.8em;
 }
-.language-header {
-  margin-bottom: 2px;
+.headline-container {
+  margin-bottom: 3px;
   font-family: 'Raleway', system-ui;
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(18px, 2vw, 35px);
   margin-left: 0.5em;
 }

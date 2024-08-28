@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+.flex-education {
+  display: flex;
+  flex-direction: row;
+}
+.education-date-container {
+  width: 30%;
+  margin-right: 10px;
+}
+.education-main-content {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+.education-headline {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: clamp(12px, 1vw, 22px);
+  margin-bottom: 0;
+}
+.education-date {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  font-size: clamp(7px, 0.8vw, 20px);
+}
+.education-headline {
+  margin-top: 0;
+}
+.ul-education {
+  margin-left: 1em;
+}
+.education-date {
+}
+.subheadline-education-container {
+  display: flex;
+  color: var(--primary-blue-color);
+  margin-top: 0;
+}
+.education-school {
+  margin: 0;
+}
+.education-city {
+  margin: 0;
+}
+.education-description {
+  font-family: 'Work Sans', sans-serif;
+}

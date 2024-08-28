@@ -40,7 +40,7 @@
   }
   .a4-nav-bar {
     height: calc(45vw * 1.414);
-    width: 16vw;
+    width: 15vw;
     background-color: rgb(40, 40, 49);
     z-index: 2;
     max-width: 300px;

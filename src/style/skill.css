@@ -115,6 +115,12 @@
   flex-direction: column;
   gap: 5px;
 }
+.headline-container {
+  font-family: 'Raleway', system-ui;
+  font-weight: 700;
+  font-size: clamp(24px, 2.2vw, 32px);
+  margin-left: 10px;
+}
 
 @media screen and (min-width: 476px) and (max-width: 1000px) {
   .done-delete-container {

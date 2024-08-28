@@ -52,41 +52,29 @@ function EducationCard({ isOpen, onClick }) {
   }, [isOpen]);
 
   const handleEducationChange = (event) => {
-    const { name, value, index } = event.target;
-    const updateEducation = { ...currentEducation, [name]: event.target.value };
+    const { name, value } = event.target;
+    const updatedEducation = { ...currentEducation, [name]: value };
 
     setValidation((prevState) => ({
       ...prevState,
       [name]: isValueValid(value),
     }));
-    setCurrentEducation((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    const isEducationExist = educationData.some(
-      (obj) => obj.index === currentEducation.index,
+
+    setCurrentEducation(updatedEducation);
+
+    // Find the index of the current education object in educationData
+    const educationIndex = educationData.findIndex(
+      (education) => education.index === updatedEducation.index
     );
 
-    if (isEducationExist) {
-      const updateEducations = educationData.map((education) =>
-        education.index === index ? { ...education, [name]: value } : education,
-      );
-      setEducationData(updateEducations);
+    if (educationIndex !== -1) {
+      // Update the existing education object
+      const updatedEducationData = [...educationData];
+      updatedEducationData[educationIndex] = updatedEducation;
+      setEducationData(updatedEducationData);
     } else {
-      setEducationData((prevState) => [
-        ...prevState,
-        {
-          education: updateEducation.education,
-          school: updateEducation.school,
-          city: updateEducation.city,
-          startDateMonth: updateEducation.startDateMonth,
-          startDateYear: updateEducation.startDateYear,
-          endDateMonth: updateEducation.endDateMonth,
-          endDateYear: updateEducation.endDateYear,
-          description: updateEducation.description,
-          index: updateEducation.index,
-        },
-      ]);
+      // Add the new education object if it doesn't exist
+      setEducationData([...educationData, updatedEducation]);
     }
   };
 
@@ -203,14 +191,14 @@ function EducationCard({ isOpen, onClick }) {
 
   const deleteItem = (deleteEducation) => {
     const isEducationExist = educationData.some(
-      (obj) => obj.index === currentEducation.index,
+      (obj) => obj.index === currentEducation.index
     );
 
     if (isEducationExist) {
       setEducationData((prevSkills) =>
         prevSkills.filter(
-          (education) => education.index !== deleteEducation.index,
-        ),
+          (education) => education.index !== deleteEducation.index
+        )
       );
       switchDiv();
       setCurrentEducation({
@@ -238,17 +226,17 @@ function EducationCard({ isOpen, onClick }) {
   };
 
   return (
-    <div className='card'>
+    <div className="card">
       <div
         className={+isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className='card-header'>Education</h1>
-        <div className='action'>
+        <h1 className="card-header">Education</h1>
+        <div className="action">
           <img
             src={isOpen ? down : up}
-            alt='open/close'
-            className='action-img'
+            alt="open/close"
+            className="action-img"
           />
         </div>
       </div>
@@ -259,9 +247,9 @@ function EducationCard({ isOpen, onClick }) {
       >
         {currentDiv === 'largeDiv' ? (
           <>
-            <form className='form-personal-work'>
+            <form className="form-personal-work">
               {formFields.map((field, index) => (
-                <div className='form-group' key={index}>
+                <div className="form-group" key={index}>
                   <label
                     htmlFor={field.name}
                     className={
@@ -286,11 +274,11 @@ function EducationCard({ isOpen, onClick }) {
                 </div>
               ))}
             </form>
-            <form className='form-personal-work-date'>
+            <form className="form-personal-work-date">
               {dateFields.map((fieldGroup, index) => (
-                <div className='date-group' key={index}>
+                <div className="date-group" key={index}>
                   {fieldGroup.map((dateFieldItem, subIndex) => (
-                    <div className='form-group-work' key={subIndex}>
+                    <div className="form-group-work" key={subIndex}>
                       {dateFieldItem.label && (
                         <label
                           htmlFor={dateFieldItem.name}
@@ -327,10 +315,10 @@ function EducationCard({ isOpen, onClick }) {
               ))}
             </form>
 
-            <form className='form-personal-work description-container'>
-              <div className='form-group'>
+            <form className="form-personal-work description-container">
+              <div className="form-group">
                 <label
-                  htmlFor='description'
+                  htmlFor="description"
                   className={
                     'label-personal' +
                     (validation['description'] ? ' valid-label' : '')
@@ -338,27 +326,29 @@ function EducationCard({ isOpen, onClick }) {
                 >
                   Description
                 </label>
-                <DescriptionEditor
+                <textarea
+                  name="description"
+                  id="description-work"
+                  onChange={handleEducationChange}
+                  placeholder=""
                   value={currentEducation['description']}
-                  onChange={(html) =>
-                    setCurrentEducation({
-                      ...currentEducation,
-                      description: html,
-                    })
+                  className={
+                    'input-personal' +
+                    (validation['description'] ? ' valid-input' : '')
                   }
                 />
               </div>
             </form>
-            <div className='done-delete-container'>
-              <div className='all-options'>
+            <div className="done-delete-container">
+              <div className="all-options">
                 <div
-                  className='delete-container'
+                  className="delete-container"
                   onClick={() => deleteItem(currentEducation)}
                 >
-                  <img src={deleteThis} alt='delete' className='delete-img' />
+                  <img src={deleteThis} alt="delete" className="delete-img" />
                 </div>
-                <button className='done-button' onClick={handleAddEduction}>
-                  <img src={ok} alt='vi' className='check' />
+                <button className="done-button" onClick={handleAddEduction}>
+                  <img src={ok} alt="vi" className="check" />
                   Done
                 </button>
               </div>
