@@ -29,16 +29,16 @@ function EducationA4({ educationData }) {
   return (
     <>
       {educationData.length !== 0 && (
-        <div className="education-list">
-          <div className="headline-container">Education</div>
-          <div className="under-line"></div>
-          <ul className="ul-education">
+        <div className='education-list'>
+          <div className='headline-container'>Education</div>
+          <div className='under-line'></div>
+          <ul className='ul-education'>
             {Array.isArray(educationData) &&
               educationData.map((education, index) => (
-                <li key={index} className="education">
-                  <div className="flex-education">
-                    <div className="education-date-container">
-                      <div className="education-date">
+                <li key={index} className='education'>
+                  <div className='flex-education'>
+                    <div className='education-date-container'>
+                      <div className='education-date'>
                         {numberToMonths(education.startDateMonth) +
                           ' ' +
                           education.startDateYear}
@@ -52,29 +52,29 @@ function EducationA4({ educationData }) {
                           education.endDateYear}
                       </div>
                     </div>
-                    <div className="education-main-content">
-                      <div className="education-headline-container">
-                        <h3 className="education-headline">
+                    <div className='education-main-content'>
+                      <div className='education-headline-container'>
+                        <h3 className='education-headline'>
                           {capitalizeSentence(education.education)}
-                          {console.log(education)}
                         </h3>
                       </div>
-                      <div className="subheadline-education-container">
-                        <div className="education-school-container">
-                          <h4 className="education-school">
+                      <div className='subheadline-education-container'>
+                        <div className='education-school-container'>
+                          <h4 className='education-school'>
                             {education.school}
                           </h4>
                         </div>
-                        <div className="education-city-container">
-                          <h4 className="education-city">
-                            {education.school.trim() !== ''
+                        <div className='education-city-container'>
+                          <h4 className='education-city'>
+                            {education.school.trim() !== '' &&
+                            education.city !== ''
                               ? ', ' + education.city
                               : education.city}
                           </h4>
                         </div>
                       </div>
-                      <div className="education-description-container">
-                        <p className="education-description">
+                      <div className='education-description-container'>
+                        <p className='education-description'>
                           {education.description}
                         </p>
                       </div>

@@ -1,3 +1,5 @@
+import '../../style/allA4/workA4.css';
+
 function WorkA4({ workData }) {
   const capitalizeSentence = (str) => {
     return str
@@ -27,16 +29,16 @@ function WorkA4({ workData }) {
   return (
     <>
       {workData.length !== 0 && (
-        <div className="work-list">
-          <div className="headline-container">Work</div>
-          <div className="under-line"></div>
-          <ul className="ul-work">
+        <div className='work-list'>
+          <div className='headline-container'>Work</div>
+          <div className='under-line'></div>
+          <ul className='ul-work'>
             {Array.isArray(workData) &&
               workData.map((work, index) => (
-                <li key={index} className="work">
-                  <div className="flex-work">
-                    <div className="work-date-container">
-                      <div className="work-date">
+                <li key={index} className='work'>
+                  <div className='flex-work'>
+                    <div className='work-date-container'>
+                      <div className='work-date'>
                         {numberToMonths(work.startDateMonth) +
                           ' ' +
                           work.startDateYear}
@@ -49,6 +51,28 @@ function WorkA4({ workData }) {
                           work.endDateYear}
                       </div>
                     </div>
+                    <div className='work-main-content'>
+                      <div className='work-headline-container'>
+                        <h3 className='work-headline'>
+                          {capitalizeSentence(work.position)}
+                        </h3>
+                      </div>
+                      <div className='subheadline-work-container'>
+                        <div className='work-WP-container'>
+                          <h4 className='work-WP'>{work.workingPlace}</h4>
+                        </div>
+                        <div className='work-city-container'>
+                          <h4 className='work-city'>
+                            {work.workingPlace.trim() !== '' && work.city !== ''
+                              ? ', ' + work.city
+                              : work.city}
+                          </h4>
+                        </div>
+                      </div>
+                      <div className='work-description-container'>
+                        <p className='work-description'>{work.description}</p>
+                      </div>
+                    </div>
                   </div>
                 </li>
               ))}
@@ -58,3 +82,5 @@ function WorkA4({ workData }) {
     </>
   );
 }
+
+export { WorkA4 };

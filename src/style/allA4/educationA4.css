@@ -18,19 +18,15 @@
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: clamp(12px, 1vw, 22px);
   margin-bottom: 0;
+  margin-top: 0;
 }
 .education-date {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
   font-size: clamp(7px, 0.8vw, 20px);
 }
-.education-headline {
-  margin-top: 0;
-}
 .ul-education {
   margin-left: 1em;
-}
-.education-date {
 }
 .subheadline-education-container {
   display: flex;
@@ -45,4 +41,5 @@
 }
 .education-description {
   font-family: 'Work Sans', sans-serif;
+  font-size: clamp(5px, 0.75vw, 17px);
 }
