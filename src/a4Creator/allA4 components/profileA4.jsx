@@ -3,7 +3,6 @@ import '../../style/allA4/profileA4.css';
 import phone from '../../assets/phone.svg';
 import mail from '../../assets/mail.svg';
 import home from '../../assets/home.svg';
-// conter
 function ProfileA4({ profileData }) {
   return (
     <>
