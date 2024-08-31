@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.photo-container {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.photo-container img {
+  height: 85%;
+  width: 85%;
+  object-fit: contain;
+}
+.profile-list {
+  display: flex;
+  align-items: start;
+  width: 37vw;
+  height: 12vw;
+}
+.headline-container {
+  display: flex;
+  color: white;
+  font-family: 'PT Serif', serif;
+  align-items: start;
+  margin: 0;
+  margin-left: 10px;
+}
+.first-name {
+  font-size: clamp(1.5rem, 2.65vw, 3rem);
+  height: fit-content;
+  margin: 0;
+}
+.profile-text {
+  color: white;
+  font-family: 'IBM Plex Sans', sans-serif;
+  margin: 0;
+  font-size: clamp(0.5rem, 1.3vw, 1.5rem);
+}
+.email-container {
+  display: flex;
+  gap: 15px;
+}
+.mini-photo-profile {
+  width: clamp(0.5rem, 1.3vw, 1.5rem);
+}
+.phone-number-container {
+  display: flex;
+  gap: 15px;
+}
+.main-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 7px;
+}
+.main-content {
+  height: 12vw;
+}
+.main-text-container {
+  height: 8vw;
+}
+.home-container {
+  display: flex;
+  gap: 15px;
+}

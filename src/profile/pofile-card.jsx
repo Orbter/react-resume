@@ -1,26 +1,31 @@
 import '../style/profile.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import down from '../assets/down.svg';
 import up from '../assets/up.svg';
 import person from '../assets/person.svg';
 import { formatPhoneNumber, isValueValid } from './profile-check';
 import { v4 as uuidv4 } from 'uuid';
-
+import { ResumeContext } from '../formProvider';
 function ProfileCard({ isOpen, onClick }) {
-  const [formData, setFormData] = useState({
-    name: '',
+  const { objSeen } = useContext(ResumeContext);
+  const { profileData, setProfileData } = objSeen;
+
+  const [currentProfile, setCurrentProfile] = useState({
+    firstName: '',
     lastName: '',
     email: '',
     phone: '',
     address: '',
+    picture: '',
   });
 
   const [validation, setValidation] = useState({
-    name: false,
+    firstName: false,
     lastName: false,
     email: false,
     phone: false,
     address: false,
+    picture: false,
   });
   const contentRef = useRef(null);
   const [maxHeight, setMaxHeight] = useState('0px');
@@ -33,52 +38,45 @@ function ProfileCard({ isOpen, onClick }) {
     }
   }, [isOpen]);
 
-  const handleChange = (event) => {
+  const handleProfileChange = (event) => {
     const { name, value } = event.target;
     let formattedValue = value;
 
+    // Format phone number if necessary
     if (name === 'phone') {
       formattedValue = formatPhoneNumber(value);
-      
-      setValidation((prevState) => ({
-        ...prevState,
-        phone: isValueValid(value, 'phone'),
-      }));
     }
+    const updatedProfile = { ...currentProfile, [name]: formattedValue };
 
-    if (name === 'email') {
-      setValidation((prevState) => ({
-        ...prevState,
-        email: isValueValid(value, 'email'),
-      }));
-    }
-    if (name === 'name') {
-      setValidation((prevState) => ({
-        ...prevState,
-        name: isValueValid(value, 'firstName'),
-      }));
-    }
-    if (name === 'lastName') {
-      setValidation((prevState) => ({
-        ...prevState,
-        lastName: isValueValid(value, 'lastName'),
-      }));
-    }
-    if (name === 'address') {
-      setValidation((prevState) => ({
-        ...prevState,
-        address: isValueValid(value, 'address'),
-      }));
-    }
+    setValidation((prevState) => ({
+      ...prevState,
+      [name]: isValueValid(value, name),
+    }));
 
-    setFormData({
-      ...formData,
-      [name]: formattedValue,
-    });
+    setCurrentProfile(updatedProfile);
+
+    setProfileData(updatedProfile);
+  };
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const image = URL.createObjectURL(event.target.files[0]);
+      setCurrentProfile((prevState) => ({
+        ...prevState,
+        picture: image,
+      }));
+      setValidation((prevState) => ({
+        ...prevState,
+        picture: true,
+      }));
+      setProfileData((prevData) => ({
+        ...prevData,
+        picture: image,
+      }));
+    }
   };
 
   const formFields = [
-    { label: 'Name', name: 'name', type: 'text', example: 'Orbter' },
+    { label: 'Name', name: 'firstName', type: 'text', example: 'Orbter' },
     { label: 'Last name', name: 'lastName', type: 'text', example: 'Souline' },
     {
       label: 'Email address',
@@ -86,32 +84,33 @@ function ProfileCard({ isOpen, onClick }) {
       type: 'text',
       example: 'poding147@gmail.com',
     },
-
   ];
-const personalForms = [    {
-  label: 'Phone number',
-  name: 'phone',
-  type: 'tel',
-  example: '053-957-4388',
-},
-{
-  label: 'Address',
-  name: 'address',
-  type: 'text',
-  example: 'Tel aviv, vaitsman 18',
-},]
+  const personalForms = [
+    {
+      label: 'Phone number',
+      name: 'phone',
+      type: 'tel',
+      example: '053-957-4388',
+    },
+    {
+      label: 'Address',
+      name: 'address',
+      type: 'text',
+      example: 'Tel aviv, vaitsman 18',
+    },
+  ];
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={+isOpen ? 'header-personal' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Personal details</h1>
-        <div className="action">
+        <h1 className='card-header'>Personal details</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -121,68 +120,81 @@ const personalForms = [    {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className="form-personal">
+        <form className='form-personal'>
           <div className='personal-row'>
-          <div className="picture-container">
-            <label className="label-personal label-picture">add picture</label>
-            <div className="add-picture">
-              <img src={person} alt="profile" />
-            </div>
-          </div> 
-          <div className='personal-information-container'>
-          {formFields.map((field, index) => (
-            <div className="form-group personal-information" key={index}>
+            <div className='picture-container'>
               <label
-                htmlFor={field.name}
                 className={
-                  'label-personal' +
-                  (validation[field.name] ? ' valid-label' : '')
+                  'label-personal label-picture' +
+                  (validation['picture'] ? ' valid-label' : '')
                 }
               >
-                {field.label}
+                add picture
               </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                placeholder={field.example}
-                value={formData[field.name]}
-                onChange={handleChange}
-                className={
-                  'input-personal' +
-                  (validation[field.name] ? ' valid-input' : '')
-                }
-              />
+              <div className='add-picture'>
+                <input
+                  type='file'
+                  name='image'
+                  className='file-input'
+                  onChange={handleImageChange}
+                ></input>
+                <img src={person} alt='profile' />
+              </div>
             </div>
-          ))}
-          </div>
+            <div className='personal-information-container'>
+              {formFields.map((field, index) => (
+                <div className='form-group personal-information' key={index}>
+                  <label
+                    htmlFor={field.name}
+                    className={
+                      'label-personal' +
+                      (validation[field.name] ? ' valid-label' : '')
+                    }
+                  >
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    id={field.name}
+                    placeholder={field.example}
+                    value={currentProfile[field.name]}
+                    onChange={handleProfileChange}
+                    className={
+                      'input-personal' +
+                      (validation[field.name] ? ' valid-input' : '')
+                    }
+                  />
+                </div>
+              ))}
+            </div>
           </div>
           <div className='general-information'>
-          {personalForms.map((field, index) => (
-            <div className="form-group" key={index}>
-              <label
-                htmlFor={field.name}
-                className={
-                  'label-personal' +
-                  (validation[field.name] ? ' valid-label' : '')
-                }
-              >
-                {field.label}
-              </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                placeholder={field.example}
-                value={formData[field.name]}
-                onChange={handleChange}
-                className={
-                  'input-personal' +
-                  (validation[field.name] ? ' valid-input' : '')
-                }
-              />
-            </div>
-          ))}
+            {personalForms.map((field, index) => (
+              <div className='form-group' key={index}>
+                <label
+                  htmlFor={field.name}
+                  className={
+                    'label-personal' +
+                    (validation[field.name] ? ' valid-label' : '')
+                  }
+                >
+                  {field.label}
+                </label>
+                <input
+                  type={field.type}
+                  name={field.name}
+                  id={field.name}
+                  placeholder={field.example}
+                  value={currentProfile[field.name]}
+                  onChange={handleProfileChange}
+                  className={
+                    'input-personal' +
+                    (validation[field.name] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+            ))}
           </div>
         </form>
       </div>

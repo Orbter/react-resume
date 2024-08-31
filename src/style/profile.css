@@ -54,6 +54,17 @@
   align-items: center;
   justify-content: center;
   min-width: 97px;
+  position: relative;
+}
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.add-picture img {
+  cursor: pointer;
 }
 .card-content {
   max-height: 0;
