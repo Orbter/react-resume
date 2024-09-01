@@ -10,8 +10,10 @@ import A4 from './a4Creator/a4Page.jsx';
 import { FormProvider } from './formProvider.jsx';
 import doc from './assets/doc.svg';
 import './index.css';
-
+import './style/openA4.css';
+import { CloseOrOpenDIv } from './a4Creator/openA4.jsx';
 function App() {
+  const [openA4, setOpenA4] = useState('close');
   const [openCard, setOpenCard] = useState({
     profile: true,
     work: false,
@@ -29,7 +31,9 @@ function App() {
       lastOpen: place,
     }));
   };
-
+  const openDiv = () => {
+    setOpenA4(openA4 === 'open' ? 'close' : 'open');
+  };
   return (
     <React.StrictMode>
       <NavBar />
@@ -58,9 +62,10 @@ function App() {
             />
           </main>
           <A4 />
+          <CloseOrOpenDIv openA4={openA4} setOpenA4={setOpenA4} />
         </div>
       </FormProvider>
-      <div className="circle-a4" onClick={}>
+      <div className="circle-a4" onClick={openDiv}>
         <img src={doc} alt="doc" />
       </div>
     </React.StrictMode>

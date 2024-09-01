@@ -1,0 +1,28 @@
+.circle-a4 {
+  background-color: var(--primary-blue-color);
+  width: clamp(110px, 30vw, 150px);
+  height: clamp(110px, 30vw, 150px);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 20px; /* Adjust this value for desired distance from the right */
+  bottom: 20px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.circle-a4 img {
+  width: clamp(40px, 10vw, 55px);
+}
+
+.circle-a4:active {
+  transform: scale(0.9);
+}
+@media screen and (min-width: 1000px) {
+  .circle-a4 {
+    display: none;
+  }
+}

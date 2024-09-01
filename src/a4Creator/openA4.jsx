@@ -1,18 +1,18 @@
 import back from '../assets/back.svg';
 import download from '../assets/download.svg';
 import A4 from './a4Page';
-function CloseOrOpenDIv(openOrClose, setOpenOrClose) {
+function CloseOrOpenDIv(openA4, setOpenA4) {
   const openDiv = () => {
-    setOpenOrClose(openOrClose === 'open' ? 'close' : 'open');
+    setOpenA4(openA4 === 'open' ? 'close' : 'open');
   };
   return (
     <>
-      {openOrClose === 'open' && (
+      {openA4 === 'open' && (
         <div className="page-a4-container">
           <nav className="nav-a4">
             <ul className="a4-list">
               <li>
-                <button className="back-button button">
+                <button className="back-button button" onClick={openDiv}>
                   <img src={back} className="back-svg" alt="back-to-div" />
                 </button>
                 <button className="download-button button">
@@ -27,3 +27,5 @@ function CloseOrOpenDIv(openOrClose, setOpenOrClose) {
     </>
   );
 }
+
+export { CloseOrOpenDIv };
