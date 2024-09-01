@@ -8,6 +8,7 @@ import SkillCard from './skills/skill-card.jsx';
 import LanguageCard from './languageChoice/language-card.jsx';
 import A4 from './a4Creator/a4Page.jsx';
 import { FormProvider } from './formProvider.jsx';
+import doc from './assets/doc.svg';
 import './index.css';
 
 function App() {
@@ -59,6 +60,9 @@ function App() {
           <A4 />
         </div>
       </FormProvider>
+      <div className="circle-a4" onClick={}>
+        <img src={doc} alt="doc" />
+      </div>
     </React.StrictMode>
   );
 }
