@@ -62,7 +62,11 @@ function App() {
             />
           </main>
           <A4 />
-          <CloseOrOpenDIv openA4={openA4} setOpenA4={setOpenA4} />
+          <>
+            {openA4 !== 'close' && (
+              <CloseOrOpenDIv openA4={openA4} setOpenA4={setOpenA4} />
+            )}
+          </>
         </div>
       </FormProvider>
       <div className="circle-a4" onClick={openDiv}>
