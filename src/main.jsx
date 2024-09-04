@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import NavBar from './NavBar';
 import ProfileCard from './profile/pofile-card.jsx';
@@ -13,6 +13,7 @@ import './index.css';
 import './style/openA4.css';
 import { CloseOrOpenDIv } from './a4Creator/openA4.jsx';
 function App() {
+  const [isAbove1000px, setIsAbove1000px] = useState(window.innerWidth > 1000);
   const [openA4, setOpenA4] = useState('close');
   const [openCard, setOpenCard] = useState({
     profile: true,
@@ -22,6 +23,20 @@ function App() {
     language: false,
     lastOpen: 'profile',
   });
+  useEffect(() => {
+    const handleResize = () => {
+      setIsAbove1000px(window.innerWidth > 1000);
+    };
+
+    // Add event listener to handle window resize
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const openOrClose = (place) => {
     const lastCard = openCard['lastOpen'];
     setOpenCard((prevState) => ({
@@ -61,9 +76,9 @@ function App() {
               onClick={() => openOrClose('language')}
             />
           </main>
-          <A4 />
+          <>{isAbove1000px && <A4 />}</>
           <>
-            {openA4 !== 'close' && (
+            {openA4 !== 'close' && !isAbove1000px && (
               <CloseOrOpenDIv openA4={openA4} setOpenA4={setOpenA4} />
             )}
           </>

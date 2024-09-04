@@ -2,6 +2,74 @@
   --grey: #e2e2e3; /* Define the primary color variable */
   --primary-blue-color: #29c2f1; /* Define the primary color variable */
 }
+html,
+body {
+  height: 100%;
+  overflow: auto;
+}
+@media screen and (max-width: 1000px) {
+  .page-a4-container {
+    overflow: auto;
+  }
+  .a4-header {
+    width: 820px;
+    height: 282px;
+    top: 5%; /* Ensures it stays at the top */
+    left: 13%;
+    background-color: var(--primary-blue-color);
+    position: absolute;
+    z-index: 4;
+  }
+  .profile-list {
+    width: 820px;
+    height: 282px;
+  }
+  .a4-padding {
+    width: 850px;
+    height: 340px;
+    max-width: 1500px;
+    left: 11%;
+    z-index: 3;
+    position: absolute;
+    top: 3%;
+    background-color: white;
+  }
+  .a4-page {
+    padding-top: 20px;
+    width: 1000px;
+    height: 1414px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    overflow: auto; /* Enables both X and Y scrolling */
+    overflow-x: auto;
+  }
+  .main-container {
+    display: flex;
+    justify-content: center;
+  }
+  .a4 {
+    width: 1000px;
+    height: 1414px; /* ratio 1.414 */
+    background-color: white;
+    display: flex;
+    z-index: 1;
+    position: relative;
+    align-items: end;
+  }
+  .a4-main-content {
+    display: flex;
+    width: 29vw;
+    height: 70%;
+    flex-direction: column;
+  }
+  .a4-nav-bar {
+    height: 1414px;
+    width: 300px;
+    background-color: rgb(40, 40, 49);
+    z-index: 2;
+  }
+}
 
 @media screen and (min-width: 1001px) {
   .main-contact {
