@@ -1,6 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @media screen and (max-width: 1000px) {
+  .profile-list {
+    width: 80vw;
+    height: 25vw;
+    display: flex;
+    align-items: start;
+  }
+
+  .first-name {
+    font-size: 5.3vw;
+    height: fit-content;
+    margin: 0;
+  }
+  .profile-text {
+    color: white;
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin: 0;
+    font-size: 2.6vw;
+  }
+  .mini-photo-profile {
+    width: 2.6vw;
+  }
+}
+@media screen and (min-width: 1001px) {
+  .profile-list {
+    display: flex;
+    align-items: start;
+    width: 37vw;
+    height: 12vw;
+  }
+  .first-name {
+    font-size: clamp(1.5rem, 2.65vw, 3rem);
+    height: fit-content;
+    margin: 0;
+  }
+  .profile-text {
+    color: white;
+    font-family: 'IBM Plex Sans', sans-serif;
+    margin: 0;
+    font-size: clamp(0.5rem, 1.3vw, 1.5rem);
+  }
+  .mini-photo-profile {
+    width: clamp(0.5rem, 1.3vw, 1.5rem);
+  }
 }
 
 .photo-container {
@@ -17,13 +60,8 @@
   width: 85%;
   object-fit: contain;
 }
-.profile-list {
-  display: flex;
-  align-items: start;
-  width: 37vw;
-  height: 12vw;
-}
-.headline-container {
+
+.headline-container-profile {
   display: flex;
   color: white;
   font-family: 'PT Serif', serif;
@@ -31,24 +69,12 @@
   margin: 0;
   margin-left: 10px;
 }
-.first-name {
-  font-size: clamp(1.5rem, 2.65vw, 3rem);
-  height: fit-content;
-  margin: 0;
-}
-.profile-text {
-  color: white;
-  font-family: 'IBM Plex Sans', sans-serif;
-  margin: 0;
-  font-size: clamp(0.5rem, 1.3vw, 1.5rem);
-}
+
 .email-container {
   display: flex;
   gap: 15px;
 }
-.mini-photo-profile {
-  width: clamp(0.5rem, 1.3vw, 1.5rem);
-}
+
 .phone-number-container {
   display: flex;
   gap: 15px;

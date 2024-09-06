@@ -8,27 +8,21 @@ body {
   overflow: auto;
 }
 @media screen and (max-width: 1000px) {
-  .page-a4-container {
-    overflow: auto;
-  }
   .a4-header {
-    width: 820px;
-    height: 282px;
-    top: 5%; /* Ensures it stays at the top */
-    left: 13%;
+    width: 80vw;
+    height: 25vw;
+    top: 5%;
+    left: 10%;
     background-color: var(--primary-blue-color);
     position: absolute;
     z-index: 4;
   }
-  .profile-list {
-    width: 820px;
-    height: 282px;
-  }
+
   .a4-padding {
-    width: 850px;
-    height: 340px;
+    width: 40vw;
+    height: 30vw;
     max-width: 1500px;
-    left: 11%;
+    left: 8%;
     z-index: 3;
     position: absolute;
     top: 3%;
@@ -36,8 +30,8 @@ body {
   }
   .a4-page {
     padding-top: 20px;
-    width: 1000px;
-    height: 1414px;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: start;
     justify-content: center;
@@ -49,8 +43,8 @@ body {
     justify-content: center;
   }
   .a4 {
-    width: 1000px;
-    height: 1414px; /* ratio 1.414 */
+    width: 95vw;
+    height: calc(95vw * 1.414); /* ratio 1.414 */
     background-color: white;
     display: flex;
     z-index: 1;
@@ -64,8 +58,8 @@ body {
     flex-direction: column;
   }
   .a4-nav-bar {
-    height: 1414px;
-    width: 300px;
+    height: calc(95vw * 1.414);
+    width: 31vw;
     background-color: rgb(40, 40, 49);
     z-index: 2;
   }

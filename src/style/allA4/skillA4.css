@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
+@media screen and (min-width: 1001px) {
+  .skill-list {
+    position: absolute;
+    top: 15.5vw;
+    color: white;
+    margin-left: 10%;
+  }
+
+  .skill-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 14vw;
+    gap: 6px;
+  }
+  .skill-name {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 1vw;
+    word-wrap: break-word;
+  }
+}
+
 :root {
   --primary-blue-color: #29c2f1; /* Define the primary color variable */
 }
 
-.skill-list {
-  position: absolute;
-  top: 15.5vw;
-  color: white;
-  margin-left: 10%;
-}
 .a4-nav-bar {
   position: relative;
 }
@@ -21,7 +38,7 @@ ul {
 .hard-skills-headline {
   color: #a5a5a5;
   font-family: 'Inter', sans-serif;
-  font-size: 1.2rem;
+  font-size: 2vw;
   margin-bottom: 10px;
 }
 
@@ -43,23 +60,7 @@ ul {
   display: flex;
   gap: 3px;
 }
-.skill-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 14vw;
-  gap: 6px;
-}
-.skill-name {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 500;
-  font-size: clamp(
-    15px,
-    1vw,
-    24px
-  ); /* Font size will be between 12px and 24px, scaling with viewport */
-  word-wrap: break-word;
-}
+
 .circle-skill.active {
   background-color: var(--primary-blue-color);
 }
@@ -68,6 +69,39 @@ ul {
   flex-direction: column;
   gap: 10px;
 }
+@media screen and (max-width: 1000px) {
+  .circle-skill {
+    width: 2.4vw;
+    height: 2.4vw;
+    max-width: 46px;
+    max-height: 46px;
+  }
+  .skill-list {
+    position: absolute;
+    top: 34vw;
+    color: white;
+    margin-left: 10%;
+  }
+  .skill-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 27vw;
+    gap: 6px;
+  }
+  .skill-name {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 3vw;
+    word-wrap: break-word;
+  }
+  .skill-container {
+  }
+  .hard-skills-headline {
+    font-size: 4vw;
+  }
+}
+
 @media screen and (min-width: 2001px) {
   .skill-list {
     top: 320px;
