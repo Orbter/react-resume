@@ -3,7 +3,8 @@
 ## Overview
 The Resume Builder is a responsive web application built with React that allows users to create, edit, and manage a resume with different sections like profile, work experience, education, skills, and languages. This project helped me expand my knowledge of React, state management, design principles, and the use of external libraries for UI enhancement.
 
-[![Project Demo](https://github.com/Orbter/react-resume/assets/94376239/image)](https://orbter.github.io/react-resume/)
+[![Project Demo](![image](https://github.com/user-attachments/assets/0ccedcfe-2182-446e-9c23-a8c725474ce4)
+)](https://orbter.github.io/react-resume/)
 
 Click the image above to try out the live demo!
 
