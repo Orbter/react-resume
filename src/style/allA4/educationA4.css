@@ -32,6 +32,7 @@
   display: flex;
   color: var(--primary-blue-color);
   margin-top: 0;
+  font-family: 'Work Sans', sans-serif;
 }
 .education-school {
   margin: 0;

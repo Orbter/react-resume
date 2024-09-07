@@ -155,7 +155,7 @@ function WorkCard({ isOpen, onClick }) {
       label: 'Working place',
       name: 'workingPlace',
       type: 'text',
-      example: 'software engineer',
+      example: 'Meta',
     },
     {
       label: 'City',
