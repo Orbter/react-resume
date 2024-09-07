@@ -131,3 +131,8 @@ body {
     max-height: 270px;
   }
 }
+@media screen and (min-width: 2000px) {
+  .a4-nav-bar {
+    min-width: 272px;
+  }
+}

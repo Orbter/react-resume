@@ -98,8 +98,13 @@ ul {
   }
 }
 
-@media screen and (min-width: 2001px) {
+@media screen and (min-width: 2000px) {
   .skill-list {
     top: 320px;
+  }
+}
+@media screen and (min-width: 1800px) {
+  .hard-skills-headline {
+    font-size: 36px;
   }
 }

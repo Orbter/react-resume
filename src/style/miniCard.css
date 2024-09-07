@@ -73,7 +73,6 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
-  width: clamp(175px, 16vw, 200px);
   height: clamp(30px, 3vw, 35px);
   transition: all 0.3s ease-in-out; /* Apply transition to all properties */
 }
@@ -95,7 +94,6 @@
   height: clamp(33px, 3.3vw, 45px);
 }
 .add-container-language:hover {
-  width: clamp(180px, 17vw, 205px); /* Slight increase for smoother effect */
-  height: clamp(32px, 3.2vw, 37px); /* Slight increase for smoother effect */
+  transform: scale(1);
   font-size: 1.12rem; /* Slightly increase font size */
 }
