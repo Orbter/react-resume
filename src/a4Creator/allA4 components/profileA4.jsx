@@ -9,9 +9,10 @@ function ProfileA4({ profileData }) {
       {profileData.length !== 0 && (
         <div className='profile-list'>
           <div className='photo-container'>
-            {profileData.picture !== undefined && (
-              <img src={profileData.picture} alt='your-photo' />
-            )}
+            {profileData.picture !== undefined &&
+              profileData.picture !== '' && (
+                <img src={profileData.picture} alt='your-photo' />
+              )}
           </div>
           <div className='main-content'>
             <div className='headline-container-profile'>
