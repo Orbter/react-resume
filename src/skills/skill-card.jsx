@@ -177,11 +177,20 @@ function SkillCard({ isOpen, onClick }) {
   const [maxHeight, setMaxHeight] = useState('0px');
 
   useEffect(() => {
-    if (isOpen) {
-      setMaxHeight(`${contentRef.current.scrollHeight}px`);
-    } else {
-      setMaxHeight('0px');
-    }
+    const updateHeight = () => {
+      if (isOpen) {
+        setTimeout(() => {
+          setMaxHeight(`${contentRef.current.scrollHeight}px`);
+        }, 0); // Add a small delay to ensure DOM is ready
+      } else {
+        setMaxHeight('0px');
+      }
+    };
+    updateHeight();
+
+    window.addEventListener('resize', updateHeight);
+
+    return () => window.removeEventListener('resize', updateHeight);
   }, [isOpen, currentDiv]);
 
   const switchDiv = () => {
@@ -313,18 +322,19 @@ function SkillCard({ isOpen, onClick }) {
                 </div>
               </div>
             </form>
-
             <div className='done-delete-container'>
-              <div
-                className='delete-container'
-                onClick={() => deleteItem(currentSkill)}
-              >
-                <img src={deleteThis} alt='delete' className='delete-img' />
+              <div className='all-options'>
+                <div
+                  className='delete-container'
+                  onClick={() => deleteItem(currentSkill)}
+                >
+                  <img src={deleteThis} alt='delete' className='delete-img' />
+                </div>
+                <button className='done-button' onClick={handleAddSkill}>
+                  <img src={ok} alt='vi' className='check' />
+                  Done
+                </button>
               </div>
-              <button className='done-button' onClick={handleAddSkill}>
-                <img src={ok} alt='vi' className='check' />
-                Done
-              </button>
             </div>
           </>
         ) : (

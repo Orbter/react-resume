@@ -43,11 +43,20 @@ function WorkCard({ isOpen, onClick }) {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      setMaxHeight(`${contentRef.current.scrollHeight}px`);
-    } else {
-      setMaxHeight('0px');
-    }
+    const updateHeight = () => {
+      if (isOpen) {
+        setTimeout(() => {
+          setMaxHeight(`${contentRef.current.scrollHeight}px`);
+        }, 0);
+      } else {
+        setMaxHeight('0px');
+      }
+    };
+    updateHeight();
+
+    window.addEventListener('resize', updateHeight);
+
+    return () => window.removeEventListener('resize', updateHeight);
   }, [isOpen, currentDiv]);
 
   const handleWorkChange = (event) => {

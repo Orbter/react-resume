@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
-:root {
-  --primary-blue-color: #29c2f1; /* Define the primary color variable */
-}
-
 .nav-bar {
   background-color: rgb(40, 40, 49);
   width: 100vw;

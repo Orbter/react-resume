@@ -23,10 +23,6 @@
   }
 }
 
-:root {
-  --primary-blue-color: #29c2f1; /* Define the primary color variable */
-}
-
 .a4-nav-bar {
   position: relative;
 }
