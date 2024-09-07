@@ -6,7 +6,7 @@ import ok from '../assets/ok.svg';
 import { isValueValid, generateYearOptions } from './work-check';
 import { v4 as uuidv4 } from 'uuid';
 import { ResumeContext } from '../formProvider';
-
+import { MiniCardWork } from '../miniCards';
 import '../style/work.css';
 
 function WorkCard({ isOpen, onClick }) {
@@ -21,6 +21,7 @@ function WorkCard({ isOpen, onClick }) {
     endDateMonth: '',
     endDateYear: '',
     description: '',
+    index: uuidv4(),
   });
   const [validation, setValidation] = useState({
     position: false,
@@ -47,7 +48,7 @@ function WorkCard({ isOpen, onClick }) {
     } else {
       setMaxHeight('0px');
     }
-  }, [isOpen]);
+  }, [isOpen, currentDiv]);
 
   const handleWorkChange = (event) => {
     const { name, value } = event.target;
@@ -61,7 +62,7 @@ function WorkCard({ isOpen, onClick }) {
     setCurrentWork(updatedWork);
 
     const workIndex = workData.findIndex(
-      (work) => work.index === updatedWork.index
+      (work) => work.index === updatedWork.index,
     );
 
     if (workIndex !== -1) {
@@ -73,6 +74,67 @@ function WorkCard({ isOpen, onClick }) {
     }
   };
 
+  const handleAddWork = () => {
+    if (
+      currentWork.position.trim !== '' &&
+      currentWork.workingPlace.trim !== '' &&
+      currentWork.city.trim !== ''
+    ) {
+      switchDiv();
+      setCurrentWork({
+        position: '',
+        workingPlace: '',
+        city: '',
+        startDateMonth: '',
+        startDateYear: '',
+        endDateMonth: '',
+        endDateYear: '',
+        description: '',
+        index: uuidv4(),
+      });
+      setValidation({
+        position: false,
+        workingPlace: false,
+        city: false,
+        startDateMonth: false,
+        startDateYear: false,
+        endDateMonth: false,
+        endDateYear: false,
+        description: false,
+      });
+    }
+  };
+
+  const deleteItem = (deleteWork) => {
+    const isWorkExist = workData.some((obj) => obj.index === currentWork.index);
+    if (isWorkExist) {
+      setWorkData((prevWork) =>
+        prevWork.filter((work) => work.index !== deleteWork),
+      );
+      switchDiv();
+      setCurrentWork({
+        position: '',
+        workingPlace: '',
+        city: '',
+        startDateMonth: '',
+        startDateYear: '',
+        endDateMonth: '',
+        endDateYear: '',
+        description: '',
+        index: uuidv4(),
+      });
+      setValidation({
+        position: false,
+        workingPlace: false,
+        city: false,
+        startDateMonth: false,
+        startDateYear: false,
+        endDateMonth: false,
+        endDateYear: false,
+        description: false,
+      });
+    }
+  };
   const formFields = [
     {
       label: 'Position',
@@ -154,17 +216,17 @@ function WorkCard({ isOpen, onClick }) {
   ];
 
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={+isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Work Experience</h1>
-        <div className="action">
+        <h1 className='card-header'>Work Experience</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -173,107 +235,122 @@ function WorkCard({ isOpen, onClick }) {
         style={{ maxHeight }}
         ref={contentRef}
       >
-        <form className="form-personal-work">
-          {formFields.map((field, index) => (
-            <div className="form-group" key={index}>
-              <label
-                htmlFor={field.name}
-                className={
-                  'label-personal' +
-                  (validation[field.name] ? ' valid-label' : '')
-                }
-              >
-                {field.label}
-              </label>
-              <input
-                type={field.type}
-                name={field.name}
-                id={field.name}
-                placeholder={field.example}
-                value={currentWork[field.name]}
-                onChange={handleWorkChange}
-                className={
-                  'input-personal' +
-                  (validation[field.name] ? ' valid-input' : '')
-                }
-              />
-            </div>
-          ))}
-        </form>
-        <form className="form-personal-work-date">
-          {dateFields.map((fieldGroup) => (
-            <div className="date-group" key={uuidv4()}>
-              {fieldGroup.map((dateFieldItem) => (
-                <div className="form-group-work" key={uuidv4()}>
-                  {dateFieldItem.label && (
-                    <label
-                      htmlFor={dateFieldItem.name}
-                      className={
-                        'label-personal' +
-                        (validation[dateFieldItem.name] ? ' valid-label' : '')
-                      }
-                    >
-                      {dateFieldItem.label}
-                    </label>
-                  )}
-                  <select
-                    name={dateFieldItem.name}
-                    id={dateFieldItem.name + '-work'}
-                    value={currentWork[dateFieldItem.name]}
-                    onChange={handleWorkChange}
+        {currentDiv === 'largeDiv' ? (
+          <>
+            <form className='form-personal-work'>
+              {formFields.map((field, index) => (
+                <div className='form-group' key={index}>
+                  <label
+                    htmlFor={field.name}
                     className={
-                      validation[dateFieldItem.name]
-                        ? ' valid-input input-personal-work'
-                        : 'input-personal-work border'
+                      'label-personal' +
+                      (validation[field.name] ? ' valid-label' : '')
                     }
                   >
-                    {dateFieldItem.options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    name={field.name}
+                    id={field.name}
+                    placeholder={field.example}
+                    value={currentWork[field.name]}
+                    onChange={handleWorkChange}
+                    className={
+                      'input-personal' +
+                      (validation[field.name] ? ' valid-input' : '')
+                    }
+                  />
                 </div>
               ))}
-            </div>
-          ))}
-        </form>
+            </form>
+            <form className='form-personal-work-date'>
+              {dateFields.map((fieldGroup) => (
+                <div className='date-group' key={uuidv4()}>
+                  {fieldGroup.map((dateFieldItem) => (
+                    <div className='form-group-work' key={uuidv4()}>
+                      {dateFieldItem.label && (
+                        <label
+                          htmlFor={dateFieldItem.name}
+                          className={
+                            'label-personal' +
+                            (validation[dateFieldItem.name]
+                              ? ' valid-label'
+                              : '')
+                          }
+                        >
+                          {dateFieldItem.label}
+                        </label>
+                      )}
+                      <select
+                        name={dateFieldItem.name}
+                        id={dateFieldItem.name + '-work'}
+                        value={currentWork[dateFieldItem.name]}
+                        onChange={handleWorkChange}
+                        className={
+                          validation[dateFieldItem.name]
+                            ? ' valid-input input-personal-work'
+                            : 'input-personal-work border'
+                        }
+                      >
+                        {dateFieldItem.options.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </form>
 
-        <form className="form-personal-work description-container">
-          <div className="form-group">
-            <label
-              htmlFor="description"
-              className={
-                'label-personal' +
-                (validation['description'] ? ' valid-label' : '')
-              }
-            >
-              Description
-            </label>
-            <textarea
-              name="description"
-              id="description-work"
-              placeholder=""
-              value={currentWork['description']}
-              onChange={handleWorkChange}
-              className={
-                'input-personal' +
-                (validation['description'] ? ' valid-input' : '')
-              }
-            />
-          </div>
-        </form>
-        <div className="done-delete-container">
-          <div className="all-options">
-            <div className="delete-container">
-              <img src={deleteThis} alt="delete" className="delete-img" />
+            <form className='form-personal-work description-container'>
+              <div className='form-group'>
+                <label
+                  htmlFor='description'
+                  className={
+                    'label-personal' +
+                    (validation['description'] ? ' valid-label' : '')
+                  }
+                >
+                  Description
+                </label>
+                <textarea
+                  name='description'
+                  id='description-work'
+                  placeholder=''
+                  value={currentWork['description']}
+                  onChange={handleWorkChange}
+                  className={
+                    'input-personal' +
+                    (validation['description'] ? ' valid-input' : '')
+                  }
+                />
+              </div>
+            </form>
+            <div className='done-delete-container'>
+              <div className='all-options'>
+                <div
+                  className='delete-container'
+                  onClick={() => deleteItem(currentWork)}
+                >
+                  <img src={deleteThis} alt='delete' className='delete-img' />
+                </div>
+                <button className='done-button' onClick={handleAddWork}>
+                  <img src={ok} alt='vi' className='check' />
+                  Done
+                </button>
+              </div>
             </div>
-            <button className="done-button">
-              <img src={ok} alt="vi" className="check" />
-              Done
-            </button>
-          </div>
-        </div>
+          </>
+        ) : (
+          <MiniCardWork
+            workData={workData}
+            setCurrentDiv={setCurrentDiv}
+            setCurrentWork={setCurrentWork}
+          />
+        )}
       </div>
     </div>
   );

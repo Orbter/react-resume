@@ -33,7 +33,7 @@ function LanguageCard({ isOpen, onClick }) {
     } else {
       setMaxHeight('0px');
     }
-  }, [isOpen]);
+  }, [isOpen, currentDiv]);
   const switchDiv = () => {
     setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
   };
@@ -45,13 +45,13 @@ function LanguageCard({ isOpen, onClick }) {
       language: true,
     }));
     const isLanguageExist = languageData.find(
-      (obj) => obj.index === updateLanguage.index
+      (obj) => obj.index === updateLanguage.index,
     );
     if (isLanguageExist) {
       const updateLanguages = languageData.map((language) =>
         language.index === updateLanguage.index
           ? { ...language, language: updateLanguage.language }
-          : language
+          : language,
       );
       setLanguageData(updateLanguages);
     } else {
@@ -63,7 +63,6 @@ function LanguageCard({ isOpen, onClick }) {
         },
       ]);
     }
-    console.log(languageData);
   };
 
   const handleAddLanguage = () => {
@@ -81,12 +80,14 @@ function LanguageCard({ isOpen, onClick }) {
 
   const deleteItem = (deleteLanguage) => {
     const languageExists = languageData.some(
-      (language) => language.index === deleteLanguage.index
+      (language) => language.index === deleteLanguage.index,
     );
 
     if (languageExists) {
       setLanguageData((prevSkills) =>
-        prevSkills.filter((language) => language.index !== deleteLanguage.index)
+        prevSkills.filter(
+          (language) => language.index !== deleteLanguage.index,
+        ),
       );
       switchDiv();
       setCurrentLanguage({
@@ -100,17 +101,17 @@ function LanguageCard({ isOpen, onClick }) {
   };
 
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Languages</h1>
-        <div className="action">
+        <h1 className='card-header'>Languages</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -121,10 +122,10 @@ function LanguageCard({ isOpen, onClick }) {
       >
         {currentDiv === 'largeDiv' ? (
           <>
-            <form className="form-personal-work">
-              <div className="form-group">
+            <form className='form-personal-work'>
+              <div className='form-group'>
                 <label
-                  htmlFor="language"
+                  htmlFor='language'
                   className={
                     'label-personal' +
                     (validation['language'] ? ' valid-label' : '')
@@ -133,10 +134,10 @@ function LanguageCard({ isOpen, onClick }) {
                   Language
                 </label>
                 <input
-                  type="text"
-                  name="language"
-                  id="language"
-                  placeholder="english"
+                  type='text'
+                  name='language'
+                  id='language'
+                  placeholder='english'
                   value={currentLanguage.language}
                   onChange={handleLanguageChange}
                   className={
@@ -147,16 +148,16 @@ function LanguageCard({ isOpen, onClick }) {
               </div>
             </form>
 
-            <div className="done-delete-container">
-              <div className="all-options">
+            <div className='done-delete-container'>
+              <div className='all-options'>
                 <div
-                  className="delete-container"
+                  className='delete-container'
                   onClick={() => deleteItem(currentLanguage)}
                 >
-                  <img src={deleteThis} alt="delete" className="delete-img" />
+                  <img src={deleteThis} alt='delete' className='delete-img' />
                 </div>
-                <button className="done-button" onClick={handleAddLanguage}>
-                  <img src={ok} alt="vi" className="check" />
+                <button className='done-button' onClick={handleAddLanguage}>
+                  <img src={ok} alt='vi' className='check' />
                   Done
                 </button>
               </div>

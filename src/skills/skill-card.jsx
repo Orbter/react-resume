@@ -56,14 +56,14 @@ function SkillCard({ isOpen, onClick }) {
     setNewSkill(updateSkill.skill);
 
     const skillExists = skillData.find(
-      (obj) => obj.index === updateSkill.index
+      (obj) => obj.index === updateSkill.index,
     );
 
     if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
         skill.index === updateSkill.index
           ? { ...skill, skill: updateSkill.skill }
-          : skill
+          : skill,
       );
       setSkillData(updatedSkills);
     } else {
@@ -90,14 +90,14 @@ function SkillCard({ isOpen, onClick }) {
     setLevel(updateSkill.level);
 
     const skillExists = skillData.find(
-      (obj) => obj.index === updateSkill.index
+      (obj) => obj.index === updateSkill.index,
     );
 
     if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
         skill.index === updateSkill.index
           ? { ...skill, level: updateSkill.level }
-          : skill
+          : skill,
       );
       setSkillData(updatedSkills);
     } else {
@@ -124,14 +124,14 @@ function SkillCard({ isOpen, onClick }) {
     setType(updateSkill.type);
 
     const skillExists = skillData.find(
-      (obj) => obj.index === updateSkill.index
+      (obj) => obj.index === updateSkill.index,
     );
 
     if (skillExists) {
       const updatedSkills = skillData.map((skill) =>
         skill.index === updateSkill.index
           ? { ...skill, type: updateSkill.type }
-          : skill
+          : skill,
       );
       setSkillData(updatedSkills);
     } else {
@@ -182,7 +182,7 @@ function SkillCard({ isOpen, onClick }) {
     } else {
       setMaxHeight('0px');
     }
-  }, [isOpen]);
+  }, [isOpen, currentDiv]);
 
   const switchDiv = () => {
     setCurrentDiv(currentDiv === 'largeDiv' ? 'miniDiv' : 'largeDiv');
@@ -190,12 +190,12 @@ function SkillCard({ isOpen, onClick }) {
 
   const deleteItem = (deleteSkill) => {
     const skillExists = skillData.some(
-      (skill) => skill.index === deleteSkill.index
+      (skill) => skill.index === deleteSkill.index,
     );
 
     if (skillExists) {
       setSkillData((prevSkills) =>
-        prevSkills.filter((skill) => skill.index !== deleteSkill.index)
+        prevSkills.filter((skill) => skill.index !== deleteSkill.index),
       );
       switchDiv();
       setCurrentSkill({
@@ -212,17 +212,17 @@ function SkillCard({ isOpen, onClick }) {
     }
   };
   return (
-    <div className="card">
+    <div className='card'>
       <div
         className={isOpen ? 'header-work' : 'header-close'}
         onClick={onClick}
       >
-        <h1 className="card-header">Skills</h1>
-        <div className="action">
+        <h1 className='card-header'>Skills</h1>
+        <div className='action'>
           <img
             src={isOpen ? down : up}
-            alt="open/close"
-            className="action-img"
+            alt='open/close'
+            className='action-img'
           />
         </div>
       </div>
@@ -233,10 +233,10 @@ function SkillCard({ isOpen, onClick }) {
       >
         {currentDiv === 'largeDiv' ? (
           <>
-            <form className="form-personal-work">
-              <div className="form-group">
+            <form className='form-personal-work'>
+              <div className='form-group'>
                 <label
-                  htmlFor="skill"
+                  htmlFor='skill'
                   className={
                     'label-personal' +
                     (validation['skill'] ? ' valid-label' : '')
@@ -245,10 +245,10 @@ function SkillCard({ isOpen, onClick }) {
                   Skill
                 </label>
                 <input
-                  type="text"
-                  name="skill"
-                  id="skill"
-                  placeholder="fastest runner"
+                  type='text'
+                  name='skill'
+                  id='skill'
+                  placeholder='fastest runner'
                   value={currentSkill.skill}
                   onChange={handleSkillChange}
                   className={
@@ -257,10 +257,10 @@ function SkillCard({ isOpen, onClick }) {
                   }
                 />
               </div>
-              <div className="row">
-                <div className="level-container">
+              <div className='row'>
+                <div className='level-container'>
                   <label
-                    htmlFor="level"
+                    htmlFor='level'
                     className={
                       'label-personal' +
                       (validation['level'] ? ' valid-label' : '')
@@ -268,8 +268,8 @@ function SkillCard({ isOpen, onClick }) {
                   >
                     Level
                   </label>
-                  <div className="circle-row">
-                    <div className="circle-rating">
+                  <div className='circle-row'>
+                    <div className='circle-rating'>
                       {[1, 2, 3, 4, 5].map((index) => (
                         <div
                           className={
@@ -282,14 +282,14 @@ function SkillCard({ isOpen, onClick }) {
                         ></div>
                       ))}
                     </div>
-                    <div className="rating-words">
-                      <p className="rating-skill">{optionText}</p>
+                    <div className='rating-words'>
+                      <p className='rating-skill'>{optionText}</p>
                     </div>
                   </div>
                 </div>
-                <div className="skill-mastery-container">
+                <div className='skill-mastery-container'>
                   <label
-                    htmlFor="mastery"
+                    htmlFor='mastery'
                     className={
                       'label-personal' +
                       (validation.skillMastery ? ' valid-label' : '')
@@ -298,7 +298,7 @@ function SkillCard({ isOpen, onClick }) {
                     Skill mastery
                   </label>
                   <select
-                    name="skillMastery"
+                    name='skillMastery'
                     value={currentSkill.type}
                     onChange={handleTypeChange}
                     className={
@@ -314,15 +314,15 @@ function SkillCard({ isOpen, onClick }) {
               </div>
             </form>
 
-            <div className="done-delete-container">
+            <div className='done-delete-container'>
               <div
-                className="delete-container"
+                className='delete-container'
                 onClick={() => deleteItem(currentSkill)}
               >
-                <img src={deleteThis} alt="delete" className="delete-img" />
+                <img src={deleteThis} alt='delete' className='delete-img' />
               </div>
-              <button className="done-button" onClick={handleAddSkill}>
-                <img src={ok} alt="vi" className="check" />
+              <button className='done-button' onClick={handleAddSkill}>
+                <img src={ok} alt='vi' className='check' />
                 Done
               </button>
             </div>

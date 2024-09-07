@@ -4,7 +4,6 @@ import phone from '../../assets/phone.svg';
 import mail from '../../assets/mail.svg';
 import home from '../../assets/home.svg';
 function ProfileA4({ profileData }) {
-  console.log(profileData.picture);
   return (
     <>
       {profileData.length !== 0 && (

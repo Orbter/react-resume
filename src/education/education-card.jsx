@@ -48,7 +48,7 @@ function EducationCard({ isOpen, onClick }) {
     } else {
       setMaxHeight('0px');
     }
-  }, [isOpen]);
+  }, [isOpen, currentDiv]);
 
   const handleEducationChange = (event) => {
     const { name, value } = event.target;
