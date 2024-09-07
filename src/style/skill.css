@@ -19,7 +19,9 @@
   min-width: 28px;
   min-height: 28px;
 }
-
+.input-personal-mastery {
+  cursor: pointer;
+}
 .row {
   display: flex;
   flex-wrap: wrap;

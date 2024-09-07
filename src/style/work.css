@@ -76,6 +76,7 @@
   background-color: var(--grey);
   border-radius: 4px;
   transition: border-color 0.3s ease;
+  cursor: pointer;
 }
 .form-personal-work-date {
   display: flex;
