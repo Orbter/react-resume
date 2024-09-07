@@ -38,6 +38,7 @@
 }
 .label-picture {
   color: var(--grey);
+  font-family: 'Rubik', sans-serif;
 }
 .add-picture {
   width: 26vw;
